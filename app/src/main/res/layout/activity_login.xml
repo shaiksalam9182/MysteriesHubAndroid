@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:background="@drawable/login_gradient"
+    tools:context=".LoginActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:src="@drawable/mask_white"
+        android:layout_gravity="center"
+        android:layout_height="100dp" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Login"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="0.2"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:focusableInTouchMode="true"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content">
+        <com.hbb20.CountryCodePicker
+            android:layout_width="match_parent"
+            android:id="@+id/ccp"
+            android:layout_marginTop="10dp"
+            app:ccp_contentColor="@color/white"
+            android:layout_height="wrap_content">
+
+        </com.hbb20.CountryCodePicker>
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:foregroundTint="@color/white"
+            android:theme="@style/TextLabel"
+            android:layout_marginTop="5dp"
+            >
+        <EditText
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:inputType="phone"
+            android:hint="Phone"
+            android:id="@+id/et_phone"
+            android:paddingBottom="20dp"
+            android:backgroundTint="@color/white"
+            android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="match_parent"
+            android:textColorHint="@color/white"
+            android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
+            android:layout_marginTop="5dp"
+            >
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="Password"
+            android:id="@+id/et_password"
+            android:paddingBottom="20dp"
+            android:inputType="textPassword"
+            android:backgroundTint="@color/white"
+            android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:textColor="@color/gradient_up"
+            android:text="Login"
+            android:id="@+id/bt_login"
+            android:textAllCaps="false"
+            android:background="@color/white"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Login with"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content" />
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:weightSum="2">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_google_sign"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            tools:ignore="RtlHardcoded" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_facebook"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="12dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="12dp"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Not a registered user? Tap on me to register"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_weight="1"
+            android:id="@+id/tv_register"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content" />
+
+
+
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

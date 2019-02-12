@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainFragment">
+
+
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_width="match_parent"
+                android:background="@drawable/login_gradient"
+                android:layout_alignParentBottom="true"
+                app:tabTextColor="#bdbdbd"
+                android:visibility="gone"
+                app:tabTextAppearance="@style/MyCustomTextAppearance"
+                app:tabSelectedTextColor="@color/white"
+                app:tabIndicatorColor="@color/white"
+                android:layout_height="60dp">
+            </android.support.design.widget.TabLayout>
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:id="@+id/view_pager"
+                android:layout_marginBottom="60dp"
+                android:layout_height="match_parent">
+            </android.support.v4.view.ViewPager>
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+</FrameLayout>

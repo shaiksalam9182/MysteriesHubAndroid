@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_gradient"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/tb_register"
+        app:title="Register"
+        android:gravity="center"
+        android:theme="@style/ToolbarTheme"
+        android:layout_gravity="center"
+        app:titleTextColor="@color/white"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:weightSum="2">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_google_sign"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            tools:ignore="RtlHardcoded" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_facebook"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="12dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="12dp"
+            tools:ignore="RtlHardcoded" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="OR"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:focusableInTouchMode="true"
+        android:layout_height="wrap_content">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:theme="@style/TextLabel"
+            android:layout_marginTop="10dp"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:hint="Fullname"
+                android:paddingBottom="20dp"
+                android:id="@+id/et_fullname"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <com.hbb20.CountryCodePicker
+            android:layout_width="match_parent"
+            android:id="@+id/ccp"
+            android:layout_marginTop="10dp"
+            app:ccp_contentColor="@color/white"
+            android:layout_height="wrap_content">
+
+        </com.hbb20.CountryCodePicker>
+
+
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:theme="@style/TextLabel"
+            android:layout_marginTop="10dp"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:id="@+id/et_phone"
+                android:paddingBottom="20dp"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="10dp"
+            android:theme="@style/TextLabel"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:hint="Email(Optional)"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="20dp"
+                android:id="@+id/et_email"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="10dp"
+            android:theme="@style/TextLabel"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:hint="Password"
+                android:id="@+id/et_password"
+                android:inputType="textPassword"
+                android:paddingBottom="20dp"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_cnf_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="10dp"
+            android:theme="@style/TextLabel"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:id="@+id/et_cnf_password"
+                android:paddingBottom="20dp"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/gradient_up"
+            android:text="Register"
+            android:textAllCaps="false"
+            android:background="@color/white"
+            android:id="@+id/bt_register"
+            android:layout_height="wrap_content" />
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

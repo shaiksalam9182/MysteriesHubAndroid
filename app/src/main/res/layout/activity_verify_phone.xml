@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/login_gradient"
+    tools:context=".VerifyPhone">
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Please verify your phone number. It will be not shared with anyone"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_height="wrap_content" />
+
+        <com.hbb20.CountryCodePicker
+            android:layout_width="match_parent"
+            android:id="@+id/ccp"
+            android:layout_marginTop="10dp"
+            app:ccp_contentColor="@color/white"
+            android:layout_height="wrap_content">
+
+        </com.hbb20.CountryCodePicker>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:foregroundTint="@color/white"
+            android:theme="@style/TextLabel"
+            android:layout_marginTop="5dp"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:inputType="phone"
+                android:hint="Phone"
+                android:id="@+id/et_phone"
+                android:paddingBottom="20dp"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:foregroundTint="@color/white"
+            android:theme="@style/TextLabel"
+            android:layout_marginTop="5dp"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:inputType="number"
+                android:id="@+id/et_otp"
+                android:hint="OTP"
+                android:paddingBottom="20dp"
+                android:backgroundTint="@color/white"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:textColor="@color/gradient_up"
+            android:text="Verify"
+            android:id="@+id/bt_send"
+            android:textAllCaps="false"
+            android:background="@color/white"
+            android:layout_height="wrap_content" />
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:textColor="@color/gradient_up"
+            android:text="Verify"
+            android:id="@+id/bt_verify"
+            android:textAllCaps="false"
+            android:background="@color/white"
+            android:layout_height="wrap_content" />
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

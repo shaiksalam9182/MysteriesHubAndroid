@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "777758909949",
+    "firebase_url": "https://naradh-175c1.firebaseio.com",
+    "project_id": "naradh-175c1",
+    "storage_bucket": "naradh-175c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777758909949:android:03dbf0eda40d9288",
+        "android_client_info": {
+          "package_name": "com.salam.naradh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777758909949-aqc0p5cpq47nig2q2lhojk1efhttt815.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5ZVL0wSoMzGOjmN5h8-4WUzyNpsNA_k0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

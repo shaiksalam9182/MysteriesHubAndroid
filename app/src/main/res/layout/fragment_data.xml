@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".DataFragment">
 
     <ProgressBar
@@ -10,6 +11,19 @@
         android:layout_gravity="center"
         android:id="@+id/pb_data"
         android:layout_height="wrap_content" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="50dp"
+        android:id="@+id/fab_write"
+        android:src="@drawable/ic_pan_tool_black_24dp"
+        app:backgroundTint="@color/gradient_up"
+        android:layout_height="wrap_content" />
+
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:fillViewport="true"

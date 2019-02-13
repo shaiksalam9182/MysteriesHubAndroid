@@ -1,8 +1,10 @@
 package com.salam.naradh;
 
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ public class DataFragment extends Fragment {
     RelativeLayout rlSlider;
     RecyclerView rvPosts;
     int deviceWidth;
+    FloatingActionButton fabWrite;
 
     public DataFragment() {
         // Required empty public constructor
@@ -53,6 +56,15 @@ public class DataFragment extends Fragment {
 
 
         deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+
+        fabWrite = (FloatingActionButton)v.findViewById(R.id.fab_write);
+
+        fabWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().startActivity(new Intent(getActivity(),WriterActivity.class));
+            }
+        });
 
         rlSlider.getLayoutParams().width = deviceWidth;
         rlSlider.getLayoutParams().height = (int) (deviceWidth/1.6);

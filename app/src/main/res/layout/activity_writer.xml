@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".WriterActivity">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+        <include
+            layout="@layout/toolbar_editor"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:hint="Title goes here"
+        android:id="@+id/et_title"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_height="wrap_content" />
+
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/white"
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_height="match_parent">
+
 
 
         <!-- Begin Editor toolbar -->
@@ -31,17 +60,26 @@
             android:layout_width="match_parent"
             android:scrollbars="vertical"
             android:layout_marginBottom="40dp"
+            android:fillViewport="true"
             android:layout_alignParentTop="true"
             android:layout_height="match_parent"
+
             >
+
+
+
+
+
             <com.github.irshulx.Editor
                 android:layout_width="match_parent"
                 android:id="@+id/editor"
                 app:render_type="Editor"
                 app:placeholder="Start writing here..."
                 android:paddingTop="10dp"
+                android:focusedByDefault="true"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_height="match_parent"
                 android:paddingBottom="100dp">
             </com.github.irshulx.Editor>
@@ -50,4 +88,4 @@
 
 
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

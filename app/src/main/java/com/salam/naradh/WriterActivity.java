@@ -2,13 +2,17 @@ package com.salam.naradh;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -79,18 +83,67 @@ public class WriterActivity extends AppCompatActivity {
 
     ImageButton btnRender;
 
+    EditText etTitle;
+
+    String title,description,phone,token,extractedimage = "";
+    SharedPreferences sd;
+    SharedPreferences.Editor edit;
+    String[] categories =new String[]{"Posts","Places","Aliens","Movies"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writer);
 
         btnRender = (ImageButton)findViewById(R.id.btnRender);
+        etTitle = (EditText)findViewById(R.id.et_title);
+        editor = (Editor)findViewById(R.id.editor);
+
+        sd = getSharedPreferences("Naradh", Context.MODE_PRIVATE);
+        edit = sd.edit();
+
+        phone = sd.getString("phone","");
+        token =sd.getString("token","");
 
         btnRender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = editor.getContentAsHTML();
-                Log.e("htmlData",data);
+               title = etTitle.getText().toString();
+               description = editor.getContentAsHTML();
+               if (title.equalsIgnoreCase("")||description.equalsIgnoreCase("")){
+                   Toast.makeText(WriterActivity.this,"Fields are empty",Toast.LENGTH_LONG).show();
+               }else {
+
+                   AlertDialog.Builder builder = new AlertDialog.Builder(WriterActivity.this);
+                   builder.setTitle("Select Category in which you want to post");
+                   builder.setSingleChoiceItems(categories, -1, new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+//                           Toast.makeText(WriterActivity.this,categories[which],Toast.LENGTH_LONG).show();
+                           Pattern pattern = Pattern.compile("(<img .*?>)");
+                           Matcher matcher = pattern.matcher(description);
+                           if (matcher.find()){
+                               extractedimage = pullLinks(matcher.group(1)).get(0);
+                           }else {
+                               Log.e("foundImages","No images found");
+                           }
+                           if (categories[which].equalsIgnoreCase("Posts")){
+                               new AsyncSendPost().execute();
+                           }else if (categories[which].equalsIgnoreCase("Places")){
+                               new AsyncSendPlaces().execute();
+                           }else if (categories[which].equalsIgnoreCase("Aliens")){
+                               new AsyncSendAliens().execute();
+                           }else if (categories[which].equalsIgnoreCase("Movies")){
+                               new AsyncSendMovies().execute();
+                           }
+                           dialog.dismiss();
+
+                       }
+                   });
+                   AlertDialog alert = builder.create();
+                   alert.show();
+
+               }
             }
         });
 
@@ -99,7 +152,7 @@ public class WriterActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-        editor = (Editor)findViewById(R.id.editor);
+
 
         setupEditor();
 
@@ -680,4 +733,201 @@ public class WriterActivity extends AppCompatActivity {
 //        setGhost((Button) findViewById(R.id.btnRender));
     }
 
+    private class AsyncSendPost extends AsyncTask<Void,Void,JSONObject> {
+
+        ProgressDialog pdLoading = new ProgressDialog(WriterActivity.this);
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("Sending your post..");
+            pdLoading.setCancelable(false);
+            pdLoading.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("title",title);
+                data.put("description",description);
+                data.put("device_type","Android");
+                data.put("user_published","1");
+                data.put("published","0");
+                data.put("image",extractedimage);
+                PostHelper postHelper = new PostHelper(WriterActivity.this);
+                return postHelper.Post(URLUtils.sendPost,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            pdLoading.dismiss();
+            if (jsonObject!=null){
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+    }
+
+    private class AsyncSendPlaces extends AsyncTask<Void,Void,JSONObject>{
+
+        ProgressDialog pdLoading = new ProgressDialog(WriterActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("Sending your post...");
+            pdLoading.setCancelable(false);
+            pdLoading.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+
+
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("title",title);
+                data.put("description",description);
+                data.put("device_type","Android");
+                data.put("user_published","1");
+                data.put("published","0");
+                data.put("image",extractedimage);
+                PostHelper postHelper = new PostHelper(WriterActivity.this);
+                return postHelper.Post(URLUtils.sendPlace,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            pdLoading.dismiss();
+            if (jsonObject!=null){
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncSendAliens extends AsyncTask<Void,Void,JSONObject>{
+
+        ProgressDialog pdLoading = new ProgressDialog(WriterActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("Sending your post...");
+            pdLoading.setCancelable(false);
+            pdLoading.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("title",title);
+                data.put("description",description);
+                data.put("device_type","Android");
+                data.put("user_published","1");
+                data.put("published","0");
+                data.put("image",extractedimage);
+                PostHelper postHelper = new PostHelper(WriterActivity.this);
+                return postHelper.Post(URLUtils.sendAlien,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            pdLoading.dismiss();
+            if (jsonObject!=null){
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncSendMovies extends AsyncTask<Void,Void,JSONObject>{
+        ProgressDialog pdLoading = new ProgressDialog(WriterActivity.this);
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("Sending your post...");
+            pdLoading.setCancelable(false);
+            pdLoading.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("title",title);
+                data.put("description",description);
+                data.put("device_type","Android");
+                data.put("user_published","1");
+                data.put("published","0");
+                data.put("image",extractedimage);
+                PostHelper postHelper = new PostHelper(WriterActivity.this);
+                return postHelper.Post(URLUtils.sendMovie,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            pdLoading.dismiss();
+            if (jsonObject!=null){
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 }

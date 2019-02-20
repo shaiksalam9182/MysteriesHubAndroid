@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DescriptionView">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+
+            <include
+                layout="@layout/description_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary" />
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="18dp"
+            android:text="Title"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:textColor="@color/gradient_up"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:id="@+id/tv_title"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_below="@id/tv_title"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
+
+
+        <com.github.irshulx.Editor
+            android:layout_width="match_parent"
+            android:id="@+id/renderer"
+            app:render_type="Renderer"
+            app:placeholder="Start writing here..."
+            android:layout_marginTop="5dp"
+            android:paddingLeft="5dp"
+            android:layout_height="match_parent"
+            android:paddingBottom="100dp">
+        </com.github.irshulx.Editor>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:src="@drawable/happy"
+                android:layout_marginRight="10dp"
+                android:id="@+id/img_like"
+                android:layout_height="30dp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:src="@drawable/sad"
+                android:id="@+id/img_disl_like"
+                android:layout_marginLeft="10dp"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_status"
+                android:text="Thanks for feedback"
+                android:textColor="@color/gradient_up"
+                android:visibility="gone"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/image_banner"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"/>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/slidergradient"
+
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:id="@+id/ll_banner"
+            android:layout_marginBottom="20dp"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:textColor="@color/white"
+            android:text="Title"
+            android:id="@+id/tv_thumb_title"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:textColor="@color/white"
+            android:text="Title"
+            android:id="@+id/tv_thumb_desc"
+            android:textSize="13dp"
+            android:maxLines="2"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+</FrameLayout>

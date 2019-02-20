@@ -1,5 +1,7 @@
 package com.salam.naradh;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,9 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView tvName;
+    SharedPreferences sd;
+    SharedPreferences.Editor editor;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,10 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+        sd = getSharedPreferences("Naradh", Context.MODE_PRIVATE);
+        editor = sd.edit();
+
+        username = sd.getString("name","");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -34,6 +46,9 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        tvName = (TextView)headerView.findViewById(R.id.tv_name);
 
         FragmentManager fm = getSupportFragmentManager();
         MainFragment mf =new MainFragment();
@@ -96,6 +111,9 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
+        }else if (id==R.id.nav_home){
+            MainFragment mf =new MainFragment();
+            fm.beginTransaction().replace(R.id.content_main,mf,mf.getTag()).commitAllowingStateLoss();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

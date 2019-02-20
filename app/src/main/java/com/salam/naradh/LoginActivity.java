@@ -324,6 +324,8 @@ public class LoginActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(LoginActivity.this,"Error occured",Toast.LENGTH_LONG).show();
                 }
+            }else {
+                Toast.makeText(LoginActivity.this,"No response from server",Toast.LENGTH_LONG).show();
             }
 
         }

@@ -5,10 +5,25 @@
     android:layout_height="match_parent"
     tools:context=".NotificationsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Notifications Fragment" />
+        android:id="@+id/rv_notifications"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/pb_not"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
 
 </FrameLayout>

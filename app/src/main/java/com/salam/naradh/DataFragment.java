@@ -48,7 +48,7 @@ public class DataFragment extends Fragment {
 
     ProgressBar pdData;
 
-    String phone,token = "";
+    String phone,token,android_id = "";
     ArrayList<HashMap> postList,placesList,aliensList,moviesList;
     HashMap<String,String>  map;
 
@@ -92,6 +92,7 @@ public class DataFragment extends Fragment {
 
         phone = sd.getString("phone","");
         token = sd.getString("token","");
+        android_id = sd.getString("android_id","");
 
 
         postList = new ArrayList<>();
@@ -152,6 +153,7 @@ public class DataFragment extends Fragment {
             try {
                 data.put("phone",phone);
                 data.put("token",token);
+                data.put("android_id",android_id);
                 data.put("skip","0");
 
                 PostHelper postHelper = new PostHelper(getActivity());
@@ -175,10 +177,19 @@ public class DataFragment extends Fragment {
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     parseJsondata(jsonObject);
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getActivity(),LoginActivity.class));
+                        getActivity().finish();
+                    }else {
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
+
                 }else {
                     Toast.makeText(getActivity(),"Error occured",Toast.LENGTH_LONG).show();
                 }
+            }else {
+                Toast.makeText(getActivity(),"Server Error",Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -229,6 +240,7 @@ public class DataFragment extends Fragment {
                 data.put("phone",phone);
                 data.put("token",token);
                 data.put("skip","0");
+                data.put("android_id",android_id);
 
                 PostHelper postHelper = new PostHelper(getActivity());
                 return  postHelper.Post(URLUtils.readPlaces,data.toString());
@@ -249,10 +261,18 @@ public class DataFragment extends Fragment {
                     Log.e("placesRes",jsonObject.toString());
                     parsePlacesJsondata(jsonObject);
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getActivity(),LoginActivity.class));
+                        getActivity().finish();
+                    }else {
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
                 }else {
                     Toast.makeText(getActivity(),"Error occured",Toast.LENGTH_LONG).show();
                 }
+            }else {
+                Toast.makeText(getActivity(),"Server Error",Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -304,6 +324,7 @@ public class DataFragment extends Fragment {
                 data.put("phone",phone);
                 data.put("token",token);
                 data.put("skip","0");
+                data.put("android_id",android_id);
 
                 PostHelper postHelper = new PostHelper(getActivity());
                 return  postHelper.Post(URLUtils.readAliens,data.toString());
@@ -324,10 +345,18 @@ public class DataFragment extends Fragment {
                     Log.e("aliensRes",jsonObject.toString());
                     parseAliensJsondata(jsonObject);
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getActivity(),LoginActivity.class));
+                        getActivity().finish();
+                    }else {
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
                 }else {
                     Toast.makeText(getActivity(),"Error occured",Toast.LENGTH_LONG).show();
                 }
+            }else {
+                Toast.makeText(getActivity(),"Server Error",Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -380,6 +409,7 @@ public class DataFragment extends Fragment {
                 data.put("phone",phone);
                 data.put("token",token);
                 data.put("skip","0");
+                data.put("android_id",android_id);
 
                 PostHelper postHelper = new PostHelper(getActivity());
                 return  postHelper.Post(URLUtils.readMovies,data.toString());
@@ -400,10 +430,18 @@ public class DataFragment extends Fragment {
                     Log.e("aliensRes",jsonObject.toString());
                     parseMoviesJsondata(jsonObject);
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getActivity(),LoginActivity.class));
+                        getActivity().finish();
+                    }else {
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
                 }else {
                     Toast.makeText(getActivity(),"Error occured",Toast.LENGTH_LONG).show();
                 }
+            }else {
+                Toast.makeText(getActivity(),"Server Error",Toast.LENGTH_LONG).show();
             }
         }
     }

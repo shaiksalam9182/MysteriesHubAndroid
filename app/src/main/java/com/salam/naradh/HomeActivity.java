@@ -1,6 +1,7 @@
 package com.salam.naradh;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -43,6 +44,8 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        getSupportActionBar().setTitle("Home");
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -110,6 +113,14 @@ public class HomeActivity extends AppCompatActivity
             fm.beginTransaction().replace(R.id.content_main,ff,ff.getTag()).commitAllowingStateLoss();
 
         } else if (id == R.id.nav_logout) {
+
+            editor.putString("phone","");
+            editor.putString("token","");
+            editor.putString("android_id","");
+            editor.putString("name","");
+            editor.commit();
+            startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+            finish();
 
         }else if (id==R.id.nav_home){
             MainFragment mf =new MainFragment();

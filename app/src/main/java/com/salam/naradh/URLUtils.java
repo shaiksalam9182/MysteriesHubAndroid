@@ -23,4 +23,6 @@ public class URLUtils {
     public static final String disLikeAlien = base+"dis_like_alien";
     public static final String disLikeMovie = base+"dis_like_movie";
     public static final String userProfile = base+"profile";
+    public static final String readNotifications = base+"read_notification";
+    public static final String sendFeedback = base+"send_feedback";
 }

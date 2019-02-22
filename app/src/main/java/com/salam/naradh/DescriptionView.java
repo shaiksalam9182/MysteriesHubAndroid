@@ -1,6 +1,7 @@
 package com.salam.naradh;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -157,7 +158,15 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setVisibility(View.VISIBLE);
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                       startActivity(login);
+                       finish();
+                    }else {
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    };
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
@@ -198,7 +207,15 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setVisibility(View.VISIBLE);
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(login);
+                        finish();
+                    }else {
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    };
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
@@ -240,7 +257,15 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setVisibility(View.VISIBLE);
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(login);
+                        finish();
+                    }else {
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    };
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
@@ -280,7 +305,15 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setVisibility(View.VISIBLE);
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(login);
+                        finish();
+                    }else {
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    };
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
@@ -318,7 +351,15 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setVisibility(View.VISIBLE);
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(login);
+                        finish();
+                    }else {
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    };
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
@@ -356,7 +397,15 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setVisibility(View.VISIBLE);
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(login);
+                        finish();
+                    }else {
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    };
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
@@ -394,7 +443,15 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setVisibility(View.VISIBLE);
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(login);
+                        finish();
+                    }else {
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    };
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
@@ -432,7 +489,15 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setVisibility(View.VISIBLE);
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(login);
+                        finish();
+                    }else {
+                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    };
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }

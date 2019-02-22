@@ -3,6 +3,7 @@ package com.salam.naradh;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -107,8 +108,18 @@ public class AccountFragment extends Fragment {
                     tvNoOfPosts.setText("Your posts: "+jsonObject.optString("post_counts"));
 
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(getContext(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(getContext(),LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        getContext().startActivity(login);
+                        getActivity().finish();
+                    }else {
+                        Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
                 }
+            }else {
+                Toast.makeText(getContext(),"We are facing problem to contact server. Please try again",Toast.LENGTH_LONG).show();
             }
         }
     }

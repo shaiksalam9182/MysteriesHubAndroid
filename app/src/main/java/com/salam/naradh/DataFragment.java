@@ -191,7 +191,9 @@ public class DataFragment extends Fragment {
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
                         Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getActivity(),LoginActivity.class));
+                        Intent login = new Intent(getContext(),LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        getContext().startActivity(login);
                         getActivity().finish();
                     }else {
                         Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
@@ -295,7 +297,9 @@ public class DataFragment extends Fragment {
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
                         Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getActivity(),LoginActivity.class));
+                        Intent login = new Intent(getContext(),LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        getContext().startActivity(login);
                         getActivity().finish();
                     }else {
                         Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
@@ -399,7 +403,9 @@ public class DataFragment extends Fragment {
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
                         Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getActivity(),LoginActivity.class));
+                        Intent login = new Intent(getContext(),LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        getContext().startActivity(login);
                         getActivity().finish();
                     }else {
                         Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
@@ -505,7 +511,10 @@ public class DataFragment extends Fragment {
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
                         Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getActivity(),LoginActivity.class));
+
+                        Intent login = new Intent(getContext(),LoginActivity.class);
+                        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        getContext().startActivity(login);
                         getActivity().finish();
                     }else {
                         Toast.makeText(getActivity(),jsonObject.optString("message"),Toast.LENGTH_LONG).show();

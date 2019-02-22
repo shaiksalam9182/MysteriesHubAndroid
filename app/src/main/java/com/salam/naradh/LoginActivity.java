@@ -336,7 +336,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("phone",jsonObject.optString("phone"));
         editor.putString("token",jsonObject.optString("token"));
         editor.putString("login_by",jsonObject.optString("login_by"));
-        editor.putString("name",jsonObject.optString("name"));
+        editor.putString("name",jsonObject.optString("fullname"));
         editor.putString("android_id",jsonObject.optString("android_id"));
         editor.commit();
         startActivity(new Intent(LoginActivity.this,HomeActivity.class));

@@ -17,10 +17,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,9 +55,12 @@ public class DataFragment extends Fragment {
     String phone,token,android_id = "";
     ArrayList<HashMap> postList,placesList,aliensList,moviesList;
     HashMap<String,String>  map;
+    ImageView ivMain;
+    TextView tvTitle;
+    FrameLayout banner;
 
-    private static ViewPager mPager;
-    CircleIndicator indicator;
+//    private static ViewPager mPager;
+//    CircleIndicator indicator;
 
     public DataFragment() {
         // Required empty public constructor
@@ -85,8 +92,10 @@ public class DataFragment extends Fragment {
         rlSlider = (RelativeLayout)v.findViewById(R.id.rl_slider);
         rvPosts =(RecyclerView)v.findViewById(R.id.rv_posts);
 
+        ivMain = (ImageView)v.findViewById(R.id.img_mainOne);
         pdData = (ProgressBar)v.findViewById(R.id.pb_data);
-
+        tvTitle = (TextView)v.findViewById(R.id.tv_thumb_title);
+        banner = (FrameLayout)v.findViewById(R.id.banner_frame);
         sd = getActivity().getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         editor = sd.edit();
 
@@ -100,8 +109,8 @@ public class DataFragment extends Fragment {
         aliensList = new ArrayList<>();
         moviesList = new ArrayList<>();
 
-        mPager = (ViewPager)v. findViewById(R.id.pager);
-        indicator = (CircleIndicator)v.findViewById(R.id.indicator);
+//        mPager = (ViewPager)v. findViewById(R.id.pager);
+//        indicator = (CircleIndicator)v.findViewById(R.id.indicator);
 
         if (type.equalsIgnoreCase("Posts")){
             new AsyncReadPosts().execute();
@@ -131,8 +140,11 @@ public class DataFragment extends Fragment {
             }
         });
 
-        rlSlider.getLayoutParams().width = deviceWidth;
-        rlSlider.getLayoutParams().height = (int) (deviceWidth/1.6);
+        ivMain.getLayoutParams().width = deviceWidth;
+        ivMain.getLayoutParams().height = (int) (deviceWidth/1.6);
+        banner.getLayoutParams().height = (int) (deviceWidth/1.6);
+
+
 
 
         return v;
@@ -195,9 +207,9 @@ public class DataFragment extends Fragment {
     }
 
     private void parseJsondata(JSONObject jsonObject) {
-        JSONArray data = jsonObject.optJSONArray("data");
+        final JSONArray data = jsonObject.optJSONArray("data");
         JSONObject temp;
-        for (int i = 0;i<data.length();i++){
+        for (int i = 1;i<data.length();i++){
             map = new HashMap<String, String>();
             temp = data.optJSONObject(i);
             map.put("post_id",temp.optString("post_id"));
@@ -212,8 +224,28 @@ public class DataFragment extends Fragment {
 
         }
 
-        mPager.setAdapter(new SliderAdapter(getActivity(),postList));
-        indicator.setViewPager(mPager);
+        Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+        tvTitle.setText(data.optJSONObject(0).optString("title"));
+
+        ivMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = data.optJSONObject(0).optString("post_id");
+                String title = data.optJSONObject(0).optString("title");
+                String description =  data.optJSONObject(0).optString("description");
+                String type = "posts";
+
+                Intent descView = new Intent(getContext(),DescriptionView.class);
+                descView.putExtra("id",id);
+                descView.putExtra("title",title);
+                descView.putExtra("description",description);
+                descView.putExtra("type",type);
+                startActivity(descView);
+            }
+        });
+
+//        mPager.setAdapter(new SliderAdapter(getActivity(),postList));
+//        indicator.setViewPager(mPager);
 
         rvPosts.setHasFixedSize(true);
         rvPosts.setNestedScrollingEnabled(false);
@@ -278,9 +310,9 @@ public class DataFragment extends Fragment {
     }
 
     private void parsePlacesJsondata(JSONObject jsonObject) {
-        JSONArray data = jsonObject.optJSONArray("data");
+        final JSONArray data = jsonObject.optJSONArray("data");
         JSONObject temp;
-        for (int i = 0;i<data.length();i++){
+        for (int i = 1;i<data.length();i++){
             map = new HashMap<String, String>();
             temp = data.optJSONObject(i);
             map.put("place_id",temp.optString("place_id"));
@@ -295,8 +327,28 @@ public class DataFragment extends Fragment {
 
         }
 
-        mPager.setAdapter(new SliderAdapter(getActivity(),placesList));
-        indicator.setViewPager(mPager);
+//        mPager.setAdapter(new SliderAdapter(getActivity(),placesList));
+//        indicator.setViewPager(mPager);
+
+        Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+        tvTitle.setText(data.optJSONObject(0).optString("title"));
+
+        ivMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = data.optJSONObject(0).optString("place_id");
+                String title = data.optJSONObject(0).optString("title");
+                String description =  data.optJSONObject(0).optString("description");
+                String type = "places";
+
+                Intent descView = new Intent(getContext(),DescriptionView.class);
+                descView.putExtra("id",id);
+                descView.putExtra("title",title);
+                descView.putExtra("description",description);
+                descView.putExtra("type",type);
+                startActivity(descView);
+            }
+        });
 
         rvPosts.setHasFixedSize(true);
         rvPosts.setNestedScrollingEnabled(false);
@@ -362,9 +414,9 @@ public class DataFragment extends Fragment {
     }
 
     private void parseAliensJsondata(JSONObject jsonObject) {
-        JSONArray data = jsonObject.optJSONArray("data");
+        final JSONArray data = jsonObject.optJSONArray("data");
         JSONObject temp;
-        for (int i = 0;i<data.length();i++){
+        for (int i = 1;i<data.length();i++){
             map = new HashMap<String, String>();
             temp = data.optJSONObject(i);
             map.put("alienPost_id",temp.optString("alienPost_id"));
@@ -380,8 +432,29 @@ public class DataFragment extends Fragment {
 
 
         }
-        mPager.setAdapter(new SliderAdapter(getActivity(),aliensList));
-        indicator.setViewPager(mPager);
+//        mPager.setAdapter(new SliderAdapter(getActivity(),aliensList));
+//        indicator.setViewPager(mPager);
+
+        Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+        tvTitle.setText(data.optJSONObject(0).optString("title"));
+
+
+        ivMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = data.optJSONObject(0).optString("alienPost_id");
+                String title = data.optJSONObject(0).optString("title");
+                String description =  data.optJSONObject(0).optString("description");
+                String type = "aliens";
+
+                Intent descView = new Intent(getContext(),DescriptionView.class);
+                descView.putExtra("id",id);
+                descView.putExtra("title",title);
+                descView.putExtra("description",description);
+                descView.putExtra("type",type);
+                startActivity(descView);
+            }
+        });
 
         rvPosts.setHasFixedSize(true);
         rvPosts.setNestedScrollingEnabled(false);
@@ -447,9 +520,9 @@ public class DataFragment extends Fragment {
     }
 
     private void parseMoviesJsondata(JSONObject jsonObject) {
-        JSONArray data = jsonObject.optJSONArray("data");
+        final JSONArray data = jsonObject.optJSONArray("data");
         JSONObject temp;
-        for (int i = 0;i<data.length();i++){
+        for (int i = 1;i<data.length();i++){
             map = new HashMap<String, String>();
             temp = data.optJSONObject(i);
             map.put("movie_id",temp.optString("movie_id"));
@@ -462,9 +535,28 @@ public class DataFragment extends Fragment {
             moviesList.add(map);
         }
 
-        mPager.setAdapter(new SliderAdapter(getActivity(),moviesList));
-//        Log.e("dataList",datalist.toString());
-        indicator.setViewPager(mPager);
+//        mPager.setAdapter(new SliderAdapter(getActivity(),moviesList));
+////        Log.e("dataList",datalist.toString());
+//        indicator.setViewPager(mPager);
+        Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+        tvTitle.setText(data.optJSONObject(0).optString("title"));
+
+        ivMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = data.optJSONObject(0).optString("movie_id");
+                String title = data.optJSONObject(0).optString("title");
+                String description =  data.optJSONObject(0).optString("description");
+                String type = "movies";
+
+                Intent descView = new Intent(getContext(),DescriptionView.class);
+                descView.putExtra("id",id);
+                descView.putExtra("title",title);
+                descView.putExtra("description",description);
+                descView.putExtra("type",type);
+                startActivity(descView);
+            }
+        });
 
 
         rvPosts.setHasFixedSize(true);

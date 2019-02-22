@@ -25,7 +25,7 @@ public class DescriptionView extends AppCompatActivity {
     ImageView imgBack,imgShare;
     TextView tvTitle,tvStatus;
     Editor editor;
-    String title,description,id,type,phone,token;
+    String title,description,id,type,phone,token,android_id;
     ImageView imgLike,imgDisLike;
 
     SharedPreferences sd;
@@ -41,6 +41,7 @@ public class DescriptionView extends AppCompatActivity {
 
         phone = sd.getString("phone","");
         token = sd.getString("token","");
+        android_id = sd.getString("android_id","");
 
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,10 +83,15 @@ public class DescriptionView extends AppCompatActivity {
 
                 }else if (type.equalsIgnoreCase("places")){
 
+                    new AsyncLikePlace().execute();
+
                 }else if (type.equalsIgnoreCase("aliens")){
+
+                    new AsyncLikeAlien().execute();
 
                 }else if (type.equalsIgnoreCase("movies")){
 
+                    new AsyncLikeMovie().execute();
                 }
             }
         });
@@ -93,7 +99,22 @@ public class DescriptionView extends AppCompatActivity {
         imgDisLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (type.equalsIgnoreCase("posts")){
 
+                    new AsyncDisLikePost().execute();
+
+                }else if (type.equalsIgnoreCase("places")){
+
+                    new AsyncDisLikePlace().execute();
+
+                }else if (type.equalsIgnoreCase("aliens")){
+
+                    new AsyncDisLikeAlien().execute();
+
+                }else if (type.equalsIgnoreCase("movies")){
+
+                    new AsyncDisLikeMovie().execute();
+                }
             }
         });
 
@@ -114,6 +135,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("phone",phone);
                 data.put("token",token);
                 data.put("post_id",id);
+                data.put("android_id",android_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.likePost,data.toString());
             } catch (JSONException e) {
@@ -121,7 +143,281 @@ public class DescriptionView extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("likeRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    imgLike.setVisibility(View.GONE);
+                    imgDisLike.setVisibility(View.GONE);
+                    tvStatus.setVisibility(View.VISIBLE);
+                    tvStatus.setText("Thanks for the feedback");
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncLikePlace extends AsyncTask<Void,Void,JSONObject>{
+
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("place_id",id);
+                data.put("android_id",android_id);
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                return postHelper.Post(URLUtils.likePlace,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("likeRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    imgLike.setVisibility(View.GONE);
+                    imgDisLike.setVisibility(View.GONE);
+                    tvStatus.setVisibility(View.VISIBLE);
+                    tvStatus.setText("Thanks for the feedback");
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncLikeAlien extends AsyncTask<Void,Void,JSONObject>{
+
+
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("alienPost_id",id);
+                data.put("android_id",android_id);
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                return postHelper.Post(URLUtils.likeAlien,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("likeRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    imgLike.setVisibility(View.GONE);
+                    imgDisLike.setVisibility(View.GONE);
+                    tvStatus.setVisibility(View.VISIBLE);
+                    tvStatus.setText("Thanks for the feedback");
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncLikeMovie extends AsyncTask<Void,Void,JSONObject>{
+
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("movie_id",id);
+                data.put("android_id",android_id);
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                return postHelper.Post(URLUtils.likeMovie,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("likeRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    imgLike.setVisibility(View.GONE);
+                    imgDisLike.setVisibility(View.GONE);
+                    tvStatus.setVisibility(View.VISIBLE);
+                    tvStatus.setText("Thanks for the feedback");
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncDisLikePost extends AsyncTask<Void,Void,JSONObject>{
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("post_id",id);
+                data.put("android_id",android_id);
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                return postHelper.Post(URLUtils.disLikePost,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("likeRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    imgLike.setVisibility(View.GONE);
+                    imgDisLike.setVisibility(View.GONE);
+                    tvStatus.setVisibility(View.VISIBLE);
+                    tvStatus.setText("Thanks for the feedback");
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncDisLikePlace extends AsyncTask<Void,Void,JSONObject>{
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("place_id",id);
+                data.put("android_id",android_id);
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                return postHelper.Post(URLUtils.disLikePlace,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("likeRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    imgLike.setVisibility(View.GONE);
+                    imgDisLike.setVisibility(View.GONE);
+                    tvStatus.setVisibility(View.VISIBLE);
+                    tvStatus.setText("Thanks for the feedback");
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncDisLikeAlien extends AsyncTask<Void,Void,JSONObject>{
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("alienPost_id",id);
+                data.put("android_id",android_id);
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                return postHelper.Post(URLUtils.disLikeAlien,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("likeRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    imgLike.setVisibility(View.GONE);
+                    imgDisLike.setVisibility(View.GONE);
+                    tvStatus.setVisibility(View.VISIBLE);
+                    tvStatus.setText("Thanks for the feedback");
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,"Sorry, We are facing problems",Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private class AsyncDisLikeMovie extends AsyncTask<Void,Void,JSONObject>{
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("movie_id",id);
+                data.put("android_id",android_id);
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                return postHelper.Post(URLUtils.disLikeMovie,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 

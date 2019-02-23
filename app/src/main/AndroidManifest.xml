@@ -14,9 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".DetailedNotification"
+            android:name=".MoreData"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
+        <activity
+            android:name=".DetailedNotification"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".FcmService">
             <intent-filter>

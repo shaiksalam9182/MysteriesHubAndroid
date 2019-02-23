@@ -20,7 +20,7 @@
         android:layout_marginRight="50dp"
         android:id="@+id/fab_write"
         android:src="@drawable/ic_pan_tool_black_24dp"
-        app:backgroundTint="@color/gradient_up"
+        app:backgroundTint="@color/white"
         android:layout_height="wrap_content" />
 
 
@@ -83,15 +83,39 @@
 
         </FrameLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:text="More"
+                android:textColor="@color/gradient_up"
+                android:id="@+id/tv_more"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/rv_posts"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
+
+
+
     </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

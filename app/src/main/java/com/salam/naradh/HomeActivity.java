@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +26,8 @@ public class HomeActivity extends AppCompatActivity
     SharedPreferences sd;
     SharedPreferences.Editor editor;
     String username;
+    boolean transactionDone = false;
+    boolean backpressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,22 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+//            super.onBackPressed();
+            if (transactionDone){
+                FragmentManager fm = getSupportFragmentManager();
+                MainFragment mf =new MainFragment();
+                transactionDone = false;
+                fm.beginTransaction().replace(R.id.content_main,mf,mf.getTag()).commitAllowingStateLoss();
+
+            }else {
+                if (backpressed){
+                    super.onBackPressed();
+                }else {
+                    backpressed = true;
+                    Toast.makeText(HomeActivity.this,"Press once again to exit",Toast.LENGTH_LONG).show();
+                }
+
+            }
         }
     }
 //
@@ -101,16 +119,20 @@ public class HomeActivity extends AppCompatActivity
 
             AccountFragment af = new AccountFragment();
             fm.beginTransaction().replace(R.id.content_main,af,af.getTag()).commitAllowingStateLoss();
+            transactionDone = true;
 
         } else if (id == R.id.nav_notifications) {
 
             NotificationsFragment nf =new NotificationsFragment();
             fm.beginTransaction().replace(R.id.content_main,nf,nf.getTag()).commitAllowingStateLoss();
+            transactionDone = true;
 
         } else if (id == R.id.nav_feedback) {
 
             FeedbackFragment ff = new FeedbackFragment();
             fm.beginTransaction().replace(R.id.content_main,ff,ff.getTag()).commitAllowingStateLoss();
+
+            transactionDone = true;
 
         } else if (id == R.id.nav_logout) {
 

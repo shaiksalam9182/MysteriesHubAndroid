@@ -14,6 +14,10 @@ public class URLUtils {
     public static final String readPlaces = base+"read_places";
     public static final String readAliens = base+"read_aliens";
     public static final String readMovies = base+"read_movies";
+    public static final String readPostsLimit = base+"read_posts_limit";
+    public static final String readPlacesLimit = base+"read_places_limit";
+    public static final String readALiensLimit = base+"read_aliens_limit";
+    public static final String readMoviesLimit = base+"read_movies_limit";
     public static final String likePost = base+"like_post";
     public static final String likePlace = base+"like_place";
     public static final String likeAlien = base+"like_alien";

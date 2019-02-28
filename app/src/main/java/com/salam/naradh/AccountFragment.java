@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +33,7 @@ public class AccountFragment extends Fragment {
     SharedPreferences sd;
     SharedPreferences.Editor editor;
     String phone,token,android_id;
+    AdView adView;
 
 
     public AccountFragment() {
@@ -47,6 +51,11 @@ public class AccountFragment extends Fragment {
         tvName = (TextView)view.findViewById(R.id.tv_name);
         tvPhone = (TextView)view.findViewById(R.id.tv_mobile);
         tvNoOfPosts = (TextView)view.findViewById(R.id.tv_posts_count);
+
+        adView = (AdView)view.findViewById(R.id.adView);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         sd = getContext().getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         editor =sd.edit();

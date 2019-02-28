@@ -29,4 +29,13 @@ public class URLUtils {
     public static final String userProfile = base+"profile";
     public static final String readNotifications = base+"read_notification";
     public static final String sendFeedback = base+"send_feedback";
+    public static final String demoUser = base+"demo_user";
+    public static final String demoUserPostLimit = base+"demo_post_limit";
+    public static final String demoUserPlaceLimit = base+"demo_place_limit";
+    public static final String demoUserAlienLimit = base+"demo_alien_limit";
+    public static final String demoUserMovieLimit = base+"demo_movie_limit";
+    public static final String demoPost = base+"demo_post";
+    public static final String demoPlace = base+"demo_place";
+    public static final String demoAlien = base+"demo_alien";
+    public static final String demoMovie = base+"demo_movie";
 }

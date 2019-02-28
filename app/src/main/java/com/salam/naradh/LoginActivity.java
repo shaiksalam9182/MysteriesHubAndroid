@@ -297,6 +297,8 @@ public class LoginActivity extends AppCompatActivity {
                 data.put("fcm_token",fcmToken);
                 data.put("android_id",androidId);
 
+                Log.e("sending_data",data.toString());
+
                 PostHelper postHelper = new PostHelper(LoginActivity.this);
                 return  postHelper.Post(URLUtils.login,data.toString());
             } catch (JSONException e) {

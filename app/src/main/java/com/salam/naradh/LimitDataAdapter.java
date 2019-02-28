@@ -9,11 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +42,8 @@ class LimitDataAdapter extends RecyclerView.Adapter<LimitDataAdapter.MyViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+
+
         myViewHolder.mCardView.getLayoutParams().height = (int) (myViewHolder.deviceWidth/3.74);
 
         myViewHolder.ivPost.getLayoutParams().width = (myViewHolder.deviceWidth/100)*30;
@@ -135,6 +139,8 @@ class LimitDataAdapter extends RecyclerView.Adapter<LimitDataAdapter.MyViewHolde
         LinearLayout llText;
         TextView tvTitle,likesCount,disLikesCount;
         int deviceWidth,deviceHeight;
+        AdView adView;
+        FrameLayout flAd;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -145,6 +151,8 @@ class LimitDataAdapter extends RecyclerView.Adapter<LimitDataAdapter.MyViewHolde
             tvTitle = (TextView)itemView.findViewById(R.id.tv_post);
             likesCount =(TextView)itemView.findViewById(R.id.tv_likes_count);
             disLikesCount = (TextView)itemView.findViewById(R.id.tv_dis_likes_count);
+            adView = (AdView)itemView.findViewById(R.id.adView);
+            flAd = (FrameLayout)itemView.findViewById(R.id.fl_ad);
 
             deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
             deviceHeight = Resources.getSystem().getDisplayMetrics().heightPixels;

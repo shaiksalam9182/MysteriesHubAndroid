@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Home"/>
         <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_transfer_within_a_station_black_24dp"
+            android:title="Login*"/>
+        <item
             android:id="@+id/nav_account"
             android:icon="@drawable/ic_account_circle_black_24dp"
             android:title="Account" />
@@ -24,6 +28,7 @@
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_power_settings_new_black_24dp"
             android:title="Logout" />
+
     </group>
 
 

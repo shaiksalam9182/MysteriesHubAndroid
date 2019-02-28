@@ -102,21 +102,42 @@ public class MoreData extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject data = new JSONObject();
 
-            try {
-                data.put("phone",phone);
-                data.put("token",token);
-                data.put("android_id",android_id);
-                data.put("skip","0");
+            if (phone.equalsIgnoreCase("")){
+                JSONObject data = new JSONObject();
 
-                PostHelper postHelper = new PostHelper(MoreData.this);
-                return  postHelper.Post(URLUtils.readPosts,data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    data.put("token",token);
+                    data.put("android_id",android_id);
+                    data.put("skip","0");
+
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return  postHelper.Post(URLUtils.demoPost,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else {
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("phone",phone);
+                    data.put("token",token);
+                    data.put("android_id",android_id);
+                    data.put("skip","0");
+
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return  postHelper.Post(URLUtils.readPosts,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
 
 
             return null;
@@ -235,19 +256,37 @@ public class MoreData extends AppCompatActivity {
             int currentSize = scrollPosition;
             int nextLimit = currentSize + 10;
 
-            JSONObject data = new JSONObject();
-            try {
-                data.put("phone", phone);
-                data.put("token", token);
-                data.put("android_id", android_id);
-                data.put("skip", integers[0]);
-                PostHelper postHelper = new PostHelper(MoreData.this);
-                return postHelper.Post(URLUtils.readPosts, data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (phone.equalsIgnoreCase("")){
+                JSONObject data = new JSONObject();
+                try {
+
+                    data.put("token", token);
+                    data.put("android_id", android_id);
+                    data.put("skip", integers[0]);
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return postHelper.Post(URLUtils.demoPost, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("phone", phone);
+                    data.put("token", token);
+                    data.put("android_id", android_id);
+                    data.put("skip", integers[0]);
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return postHelper.Post(URLUtils.readPosts, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
 
             return null;
         }
@@ -300,21 +339,43 @@ public class MoreData extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject data = new JSONObject();
 
-            try {
-                data.put("phone",phone);
-                data.put("token",token);
-                data.put("skip","0");
-                data.put("android_id",android_id);
+            if (phone.equalsIgnoreCase("")){
 
-                PostHelper postHelper = new PostHelper(MoreData.this);
-                return  postHelper.Post(URLUtils.readPlaces,data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return  postHelper.Post(URLUtils.demoPlace,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else {
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("phone",phone);
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return  postHelper.Post(URLUtils.readPlaces,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
             return null;
         }
 
@@ -430,19 +491,37 @@ public class MoreData extends AppCompatActivity {
             int currentSize = scrollPosition;
             int nextLimit = currentSize + 10;
 
-            JSONObject data = new JSONObject();
-            try {
-                data.put("phone", phone);
-                data.put("token", token);
-                data.put("android_id", android_id);
-                data.put("skip", integers[0]);
-                PostHelper postHelper = new PostHelper(MoreData.this);
-                return postHelper.Post(URLUtils.readPlaces, data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (phone.equalsIgnoreCase("")){
+                JSONObject data = new JSONObject();
+                try {
+
+                    data.put("token", token);
+                    data.put("android_id", android_id);
+                    data.put("skip", integers[0]);
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return postHelper.Post(URLUtils.demoPlace, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("phone", phone);
+                    data.put("token", token);
+                    data.put("android_id", android_id);
+                    data.put("skip", integers[0]);
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return postHelper.Post(URLUtils.readPlaces, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
 
             return null;
         }
@@ -497,21 +576,43 @@ public class MoreData extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject data = new JSONObject();
 
-            try {
-                data.put("phone",phone);
-                data.put("token",token);
-                data.put("skip","0");
-                data.put("android_id",android_id);
+            if (phone.equalsIgnoreCase("")){
 
-                PostHelper postHelper = new PostHelper(MoreData.this);
-                return  postHelper.Post(URLUtils.readAliens,data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return  postHelper.Post(URLUtils.demoAlien,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else {
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("phone",phone);
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return  postHelper.Post(URLUtils.readAliens,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
             return null;
         }
 
@@ -621,19 +722,37 @@ public class MoreData extends AppCompatActivity {
             int currentSize = scrollPosition;
             int nextLimit = currentSize + 10;
 
-            JSONObject data = new JSONObject();
-            try {
-                data.put("phone", phone);
-                data.put("token", token);
-                data.put("android_id", android_id);
-                data.put("skip", integers[0]);
-                PostHelper postHelper = new PostHelper(MoreData.this);
-                return postHelper.Post(URLUtils.readAliens, data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (phone.equalsIgnoreCase("")){
+
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("token", token);
+                    data.put("android_id", android_id);
+                    data.put("skip", integers[0]);
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return postHelper.Post(URLUtils.demoAlien, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("phone", phone);
+                    data.put("token", token);
+                    data.put("android_id", android_id);
+                    data.put("skip", integers[0]);
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return postHelper.Post(URLUtils.readAliens, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
 
             return null;
         }
@@ -683,21 +802,41 @@ public class MoreData extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject data = new JSONObject();
 
-            try {
-                data.put("phone",phone);
-                data.put("token",token);
-                data.put("skip","0");
-                data.put("android_id",android_id);
+            if (phone.equalsIgnoreCase("")){
+                JSONObject data = new JSONObject();
 
-                PostHelper postHelper = new PostHelper(MoreData.this);
-                return  postHelper.Post(URLUtils.readMovies,data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return  postHelper.Post(URLUtils.demoMovie,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("phone",phone);
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return  postHelper.Post(URLUtils.readMovies,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
             return null;
         }
 
@@ -808,19 +947,35 @@ public class MoreData extends AppCompatActivity {
             int currentSize = scrollPosition;
             int nextLimit = currentSize + 10;
 
-            JSONObject data = new JSONObject();
-            try {
-                data.put("phone", phone);
-                data.put("token", token);
-                data.put("android_id", android_id);
-                data.put("skip", integers[0]);
-                PostHelper postHelper = new PostHelper(MoreData.this);
-                return postHelper.Post(URLUtils.readMovies, data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (phone.equalsIgnoreCase("")){
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("token", token);
+                    data.put("android_id", android_id);
+                    data.put("skip", integers[0]);
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return postHelper.Post(URLUtils.demoMovie, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("phone", phone);
+                    data.put("token", token);
+                    data.put("android_id", android_id);
+                    data.put("skip", integers[0]);
+                    PostHelper postHelper = new PostHelper(MoreData.this);
+                    return postHelper.Post(URLUtils.readMovies, data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
 
             return null;
         }

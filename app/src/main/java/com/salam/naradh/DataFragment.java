@@ -2,6 +2,7 @@ package com.salam.naradh;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,6 +70,7 @@ public class DataFragment extends Fragment {
     boolean isLoading = false;
 
     TextView tvMore;
+    boolean demouser  = true;
 
 //    private static ViewPager mPager;
 //    CircleIndicator indicator;
@@ -124,6 +127,7 @@ public class DataFragment extends Fragment {
         android_id = sd.getString("android_id","");
 
 
+
         postList = new ArrayList<>();
         placesList = new ArrayList<>();
         aliensList = new ArrayList<>();
@@ -159,7 +163,30 @@ public class DataFragment extends Fragment {
         fabWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(),WriterActivity.class));
+                if (phone.equalsIgnoreCase("")){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Please login to contribute");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(getContext(), LoginActivity.class);
+                            startActivity(intent);
+                            dialogInterface.dismiss();
+
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
+                }else {
+                    getActivity().startActivity(new Intent(getActivity(),WriterActivity.class));
+                }
+
             }
         });
 
@@ -183,21 +210,44 @@ public class DataFragment extends Fragment {
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject data = new JSONObject();
 
-            try {
-                data.put("phone",phone);
-                data.put("token",token);
-                data.put("android_id",android_id);
-                data.put("skip","0");
 
-                PostHelper postHelper = new PostHelper(getActivity());
-                return  postHelper.Post(URLUtils.readPostsLimit,data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (phone.equalsIgnoreCase("")){
+
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("token",token);
+                    data.put("android_id",android_id);
+                    data.put("skip","0");
+
+                    PostHelper postHelper = new PostHelper(getActivity());
+                    return  postHelper.Post(URLUtils.demoUserPostLimit,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else {
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("phone",phone);
+                    data.put("token",token);
+                    data.put("android_id",android_id);
+                    data.put("skip","0");
+
+                    PostHelper postHelper = new PostHelper(getActivity());
+                    return  postHelper.Post(URLUtils.readPostsLimit,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
 
 
             return null;
@@ -328,21 +378,42 @@ public class DataFragment extends Fragment {
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject data = new JSONObject();
 
-            try {
-                data.put("phone",phone);
-                data.put("token",token);
-                data.put("skip","0");
-                data.put("android_id",android_id);
+            if (phone.equalsIgnoreCase("")){
+                JSONObject data = new JSONObject();
 
-                PostHelper postHelper = new PostHelper(getActivity());
-                return  postHelper.Post(URLUtils.readPlacesLimit,data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(getActivity());
+                    return  postHelper.Post(URLUtils.demoUserPlaceLimit,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else {
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("phone",phone);
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(getActivity());
+                    return  postHelper.Post(URLUtils.readPlacesLimit,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
             return null;
         }
 
@@ -434,21 +505,41 @@ public class DataFragment extends Fragment {
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject data = new JSONObject();
 
-            try {
-                data.put("phone",phone);
-                data.put("token",token);
-                data.put("skip","0");
-                data.put("android_id",android_id);
+            if (phone.equalsIgnoreCase("")){
+                JSONObject data = new JSONObject();
 
-                PostHelper postHelper = new PostHelper(getActivity());
-                return  postHelper.Post(URLUtils.readALiensLimit,data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(getActivity());
+                    return  postHelper.Post(URLUtils.demoUserAlienLimit,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("phone",phone);
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(getActivity());
+                    return  postHelper.Post(URLUtils.readALiensLimit,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
             return null;
         }
 
@@ -542,21 +633,41 @@ public class DataFragment extends Fragment {
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
-            JSONObject data = new JSONObject();
 
-            try {
-                data.put("phone",phone);
-                data.put("token",token);
-                data.put("skip","0");
-                data.put("android_id",android_id);
+            if (phone.equalsIgnoreCase("")){
+                JSONObject data = new JSONObject();
 
-                PostHelper postHelper = new PostHelper(getActivity());
-                return  postHelper.Post(URLUtils.readMoviesLimit,data.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(getActivity());
+                    return  postHelper.Post(URLUtils.demoUserMovieLimit,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                JSONObject data = new JSONObject();
+
+                try {
+                    data.put("phone",phone);
+                    data.put("token",token);
+                    data.put("skip","0");
+                    data.put("android_id",android_id);
+
+                    PostHelper postHelper = new PostHelper(getActivity());
+                    return  postHelper.Post(URLUtils.readMoviesLimit,data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
             return null;
         }
 

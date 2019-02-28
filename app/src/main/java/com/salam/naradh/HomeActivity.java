@@ -1,12 +1,14 @@
 package com.salam.naradh;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,6 +30,7 @@ public class HomeActivity extends AppCompatActivity
     String username;
     boolean transactionDone = false;
     boolean backpressed = false;
+    String phone = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class HomeActivity extends AppCompatActivity
         editor = sd.edit();
 
         username = sd.getString("name","");
+        phone = sd.getString("phone","");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,10 +59,18 @@ public class HomeActivity extends AppCompatActivity
 
         View headerView = navigationView.getHeaderView(0);
         tvName = (TextView)headerView.findViewById(R.id.tv_name);
+        tvName.setText(username);
 
         FragmentManager fm = getSupportFragmentManager();
         MainFragment mf =new MainFragment();
         fm.beginTransaction().replace(R.id.content_main,mf,mf.getTag()).commitAllowingStateLoss();
+
+        navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+
+        if (phone.equalsIgnoreCase("")){
+            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+        }
     }
 
     @Override
@@ -117,9 +129,33 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_account) {
 
-            AccountFragment af = new AccountFragment();
-            fm.beginTransaction().replace(R.id.content_main,af,af.getTag()).commitAllowingStateLoss();
-            transactionDone = true;
+            if (phone.equalsIgnoreCase("")){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                builder.setMessage("Please login to access account section");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        dialogInterface.dismiss();
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+            }else {
+                AccountFragment af = new AccountFragment();
+                fm.beginTransaction().replace(R.id.content_main,af,af.getTag()).commitAllowingStateLoss();
+                transactionDone = true;
+            }
+
+
 
         } else if (id == R.id.nav_notifications) {
 
@@ -129,10 +165,34 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_feedback) {
 
-            FeedbackFragment ff = new FeedbackFragment();
-            fm.beginTransaction().replace(R.id.content_main,ff,ff.getTag()).commitAllowingStateLoss();
+            if (phone.equalsIgnoreCase("")){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                builder.setMessage("Please login to serve you better");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        dialogInterface.dismiss();
 
-            transactionDone = true;
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+            }else {
+                FeedbackFragment ff = new FeedbackFragment();
+                fm.beginTransaction().replace(R.id.content_main,ff,ff.getTag()).commitAllowingStateLoss();
+
+                transactionDone = true;
+            }
+
+
 
         } else if (id == R.id.nav_logout) {
 
@@ -147,6 +207,8 @@ public class HomeActivity extends AppCompatActivity
         }else if (id==R.id.nav_home){
             MainFragment mf =new MainFragment();
             fm.beginTransaction().replace(R.id.content_main,mf,mf.getTag()).commitAllowingStateLoss();
+        }else if (id==R.id.nav_login){
+            startActivity(new Intent(HomeActivity.this,LoginActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -44,6 +44,7 @@ public class DescriptionView extends AppCompatActivity {
         token = sd.getString("token","");
         android_id = sd.getString("android_id","");
 
+
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -63,6 +64,13 @@ public class DescriptionView extends AppCompatActivity {
 
         imgLike = (ImageView)findViewById(R.id.img_like);
         imgDisLike = (ImageView)findViewById(R.id.img_disl_like);
+
+
+        if (phone.equalsIgnoreCase("")){
+            imgLike.setVisibility(View.GONE);
+            imgDisLike.setVisibility(View.GONE);
+        }
+
 
         editor.render(description);
         tvTitle.setText(title);

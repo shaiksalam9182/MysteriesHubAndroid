@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -74,6 +75,8 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sd;
     SharedPreferences.Editor editor;
 
+    String androidId = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,8 @@ public class LoginActivity extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_login);
         callbackManager = CallbackManager.Factory.create();
+
+        androidId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
 
         etPhone = (EditText)findViewById(R.id.et_phone);
@@ -290,6 +295,9 @@ public class LoginActivity extends AppCompatActivity {
                 data.put("login_by","google");
                 data.put("device_type","Android");
                 data.put("fcm_token",fcmToken);
+                data.put("android_id",androidId);
+
+                Log.e("sending_data",data.toString());
 
                 PostHelper postHelper = new PostHelper(LoginActivity.this);
                 return  postHelper.Post(URLUtils.login,data.toString());
@@ -310,12 +318,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e("google_signin_res",jsonObject.toString());
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     Toast.makeText(LoginActivity.this,"Successfully loggedIn",Toast.LENGTH_LONG).show();
-
                     storeDetails(jsonObject);
-
-
-
-
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     Toast.makeText(LoginActivity.this,"No records found",Toast.LENGTH_LONG).show();
                 }
@@ -335,6 +338,8 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("phone",jsonObject.optString("phone"));
         editor.putString("token",jsonObject.optString("token"));
         editor.putString("login_by",jsonObject.optString("login_by"));
+        editor.putString("name",jsonObject.optString("fullname"));
+        editor.putString("android_id",jsonObject.optString("android_id"));
         editor.commit();
         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
         finish();
@@ -360,6 +365,7 @@ public class LoginActivity extends AppCompatActivity {
                 data.put("login_by","facebook");
                 data.put("device_type","Android");
                 data.put("fcm_token",fcmToken);
+                data.put("android_id",androidId);
 
                 PostHelper postHelper = new PostHelper(LoginActivity.this);
                 Log.e("sendingdata",data.toString());
@@ -411,6 +417,7 @@ public class LoginActivity extends AppCompatActivity {
                 data.put("login_by","manual");
                 data.put("device_type","Android");
                 data.put("fcm_token",fcmToken);
+                data.put("android_id",androidId);
 
                 PostHelper postHelper = new PostHelper(LoginActivity.this);
                 Log.e("sendingData",data.toString());

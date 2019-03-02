@@ -26,6 +26,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
         android:buttonTint="@color/white"
+        android:id="@+id/rb_bug"
         android:layout_height="wrap_content" />
 
     <RadioButton
@@ -33,6 +34,7 @@
         android:text="Request a feature"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
+        android:id="@+id/rb_feature"
         android:buttonTint="@color/white"
         android:layout_height="wrap_content" />
 
@@ -41,6 +43,7 @@
         android:layout_width="wrap_content"
         android:text="Suggestions"
         android:layout_marginTop="10dp"
+        android:id="@+id/rb_suggestion"
         android:textColor="@color/white"
         android:buttonTint="@color/white"
         android:layout_height="wrap_content" />
@@ -56,6 +59,8 @@
         android:textColor="@color/gradient_up"
         android:layout_marginTop="20dp"
         android:gravity="top"
+        android:paddingTop="5dp"
+        android:id="@+id/et_feedback"
         android:paddingLeft="5dp"
         android:layout_height="100dp" />
 
@@ -63,6 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
+        android:id="@+id/bt_submit"
         android:background="@color/white"
         android:textColor="@color/gradient_up"
         android:text="Submit"

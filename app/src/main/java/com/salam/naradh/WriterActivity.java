@@ -85,7 +85,7 @@ public class WriterActivity extends AppCompatActivity {
 
     EditText etTitle;
 
-    String title,description,phone,token,extractedimage = "";
+    String title,description,phone,token,extractedimage,android_id = "";
     SharedPreferences sd;
     SharedPreferences.Editor edit;
     String[] categories =new String[]{"Posts","Places","Aliens","Movies"};
@@ -104,6 +104,7 @@ public class WriterActivity extends AppCompatActivity {
 
         phone = sd.getString("phone","");
         token =sd.getString("token","");
+        android_id = sd.getString("android_id","");
 
         btnRender.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -759,6 +760,7 @@ public class WriterActivity extends AppCompatActivity {
                 data.put("user_published","1");
                 data.put("published","0");
                 data.put("image",extractedimage);
+                data.put("android_id",android_id);
                 PostHelper postHelper = new PostHelper(WriterActivity.this);
                 return postHelper.Post(URLUtils.sendPost,data.toString());
             } catch (JSONException e) {
@@ -777,7 +779,13 @@ public class WriterActivity extends AppCompatActivity {
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(WriterActivity.this,LoginActivity.class));
+                        finish();
+                    }else {
+                        Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 
@@ -810,6 +818,7 @@ public class WriterActivity extends AppCompatActivity {
                 data.put("user_published","1");
                 data.put("published","0");
                 data.put("image",extractedimage);
+                data.put("android_id",android_id);
                 PostHelper postHelper = new PostHelper(WriterActivity.this);
                 return postHelper.Post(URLUtils.sendPlace,data.toString());
             } catch (JSONException e) {
@@ -829,7 +838,13 @@ public class WriterActivity extends AppCompatActivity {
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(WriterActivity.this,LoginActivity.class));
+                        finish();
+                    }else {
+                        Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         }
@@ -859,6 +874,7 @@ public class WriterActivity extends AppCompatActivity {
                 data.put("user_published","1");
                 data.put("published","0");
                 data.put("image",extractedimage);
+                data.put("android_id",android_id);
                 PostHelper postHelper = new PostHelper(WriterActivity.this);
                 return postHelper.Post(URLUtils.sendAlien,data.toString());
             } catch (JSONException e) {
@@ -877,7 +893,13 @@ public class WriterActivity extends AppCompatActivity {
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(WriterActivity.this,LoginActivity.class));
+                        finish();
+                    }else {
+                        Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         }
@@ -907,6 +929,7 @@ public class WriterActivity extends AppCompatActivity {
                 data.put("user_published","1");
                 data.put("published","0");
                 data.put("image",extractedimage);
+                data.put("android_id",android_id);
                 PostHelper postHelper = new PostHelper(WriterActivity.this);
                 return postHelper.Post(URLUtils.sendMovie,data.toString());
             } catch (JSONException e) {
@@ -925,7 +948,13 @@ public class WriterActivity extends AppCompatActivity {
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    if (jsonObject.optString("code").equalsIgnoreCase("500")){
+                        Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(WriterActivity.this,LoginActivity.class));
+                        finish();
+                    }else {
+                        Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         }

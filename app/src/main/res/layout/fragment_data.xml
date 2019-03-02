@@ -20,7 +20,7 @@
         android:layout_marginRight="50dp"
         android:id="@+id/fab_write"
         android:src="@drawable/ic_pan_tool_black_24dp"
-        app:backgroundTint="@color/gradient_up"
+        app:backgroundTint="@color/white"
         android:layout_height="wrap_content" />
 
 
@@ -38,35 +38,84 @@
         android:focusableInTouchMode="true"
         android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:id="@+id/rl_slider"
-        android:layout_height="wrap_content">
-
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <me.relex.circleindicator.CircleIndicator
-            android:id="@+id/indicator"
+            android:layout_height="wrap_content">
+
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/img_mainOne"
+                android:scaleType="fitXY"
+                android:layout_height="250dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/banner_gradient"
+                android:id="@+id/banner_frame"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_thumb_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="5dp"
+                        android:maxLines="2"
+                        android:text="Title"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:layout_alignParentBottom="true"/>
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_height="wrap_content">
 
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:text="More"
+                android:textColor="@color/gradient_up"
+                android:id="@+id/tv_more"
+                android:layout_height="wrap_content" />
 
+
+
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/rv_posts"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
+
+
+
     </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

@@ -36,6 +36,7 @@
             android:text="Name"
             android:textColor="@color/white"
             android:textSize="15dp"
+            android:id="@+id/tv_name"
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content" />
 
@@ -45,6 +46,7 @@
             android:text="Mobile Number"
             android:textColor="@color/white"
             android:textSize="15dp"
+            android:id="@+id/tv_mobile"
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content" />
 
@@ -54,6 +56,7 @@
             android:text="Your posts"
             android:textColor="@color/white"
             android:textSize="15dp"
+            android:id="@+id/tv_posts_count"
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content" />
 
@@ -66,6 +69,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginTop="20dp"
+            android:id="@+id/bt_change_password"
             android:textColor="@color/gradient_up"
             android:layout_height="wrap_content" />
 
@@ -77,10 +81,25 @@
             android:text="Change Mobile Number"
             android:textAllCaps="false"
             android:paddingLeft="10dp"
+            android:id="@+id/bt_change_mobile_number"
             android:paddingRight="10dp"
             android:layout_marginTop="20dp"
             android:textColor="@color/gradient_up"
             android:layout_height="wrap_content" />
+
+
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+            </com.google.android.gms.ads.AdView>
+
         </LinearLayout>
 
 

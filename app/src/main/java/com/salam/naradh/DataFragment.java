@@ -284,20 +284,29 @@ public class DataFragment extends Fragment {
     private void parseJsondata(JSONObject jsonObject) {
         final JSONArray data = jsonObject.optJSONArray("data");
         JSONObject temp;
+        HashMap<String,String> adMap;
         for (int i = 1;i<data.length();i++){
             map = new HashMap<String, String>();
             temp = data.optJSONObject(i);
+            if (i%3==0){
+                adMap = new HashMap<String, String>();
+                adMap.put("type","ad");
+                postList.add(adMap);
+            }
             map.put("post_id",temp.optString("post_id"));
             map.put("title",temp.optString("title"));
             map.put("description",temp.optString("description"));
             map.put("post_by",temp.optString("post_by"));
             map.put("image",temp.optString("image"));
+            map.put("type","data");
             map.put("likes_count",temp.optString("likes_count"));
             map.put("dis_likes_count",temp.optString("dis_likes_count"));
 
             postList.add(map);
 
         }
+
+        Log.e("postList",postList.toString());
 
         Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
         tvTitle.setText(data.optJSONObject(0).optString("title"));
@@ -447,14 +456,21 @@ public class DataFragment extends Fragment {
     private void parsePlacesJsondata(JSONObject jsonObject) {
         final JSONArray data = jsonObject.optJSONArray("data");
         JSONObject temp;
+        HashMap<String,String> adMap;
         for (int i = 1;i<data.length();i++){
             map = new HashMap<String, String>();
             temp = data.optJSONObject(i);
+            if (i%3==0){
+                adMap = new HashMap<String, String>();
+                adMap.put("type","ad");
+                postList.add(adMap);
+            }
             map.put("place_id",temp.optString("place_id"));
             map.put("title",temp.optString("title"));
             map.put("description",temp.optString("description"));
             map.put("post_by",temp.optString("post_by"));
             map.put("image",temp.optString("image"));
+            map.put("type","data");
             map.put("likes_count",temp.optString("likes_count"));
             map.put("dis_likes_count",temp.optString("dis_likes_count"));
 
@@ -573,14 +589,21 @@ public class DataFragment extends Fragment {
     private void parseAliensJsondata(JSONObject jsonObject) {
         final JSONArray data = jsonObject.optJSONArray("data");
         JSONObject temp;
+        HashMap<String,String> adMap;
         for (int i = 1;i<data.length();i++){
             map = new HashMap<String, String>();
             temp = data.optJSONObject(i);
+            if ( i%3==0){
+                adMap = new HashMap<String, String>();
+                adMap.put("type","ad");
+                postList.add(adMap);
+            }
             map.put("alienPost_id",temp.optString("alienPost_id"));
             map.put("title",temp.optString("title"));
             map.put("description",temp.optString("description"));
             map.put("post_by",temp.optString("post_by"));
             map.put("image",temp.optString("image"));
+            map.put("type","data");
             map.put("likes_count",temp.optString("likes_count"));
             map.put("dis_likes_count",temp.optString("dis_likes_count"));
 
@@ -702,14 +725,21 @@ public class DataFragment extends Fragment {
     private void parseMoviesJsondata(JSONObject jsonObject) {
         final JSONArray data = jsonObject.optJSONArray("data");
         JSONObject temp;
+        HashMap<String,String> adMap;
         for (int i = 1;i<data.length();i++){
             map = new HashMap<String, String>();
             temp = data.optJSONObject(i);
+            if ( i%3==0){
+                adMap = new HashMap<String, String>();
+                adMap.put("type","ad");
+                postList.add(adMap);
+            }
             map.put("movie_id",temp.optString("movie_id"));
             map.put("title",temp.optString("title"));
             map.put("description",temp.optString("description"));
             map.put("post_by",temp.optString("post_by"));
             map.put("image",temp.optString("image"));
+            map.put("type","data");
             map.put("likes_count",temp.optString("likes_count"));
             map.put("dis_likes_count",temp.optString("dis_likes_count"));
             moviesList.add(map);

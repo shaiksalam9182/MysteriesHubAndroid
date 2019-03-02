@@ -63,12 +63,16 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             itemRowHolder.mCardView.getLayoutParams().height = (int) (itemRowHolder.deviceWidth/3.74);
 
-            itemRowHolder.ivPost.getLayoutParams().width = (itemRowHolder.deviceWidth/100)*30;
-            itemRowHolder.ivPost.getLayoutParams().height = itemRowHolder.mCardView.getLayoutParams().height;
+            itemRowHolder.ivPost.getLayoutParams().width = (int) (itemRowHolder.mCardView.getLayoutParams().height/1.3);
+            itemRowHolder.ivPost.getLayoutParams().height = (int) (itemRowHolder.mCardView.getLayoutParams().height/1.3);
+
+            itemRowHolder.tvTitle.setTextSize(itemRowHolder.mCardView.getLayoutParams().height/15);
+            itemRowHolder.likesCount.setTextSize(itemRowHolder.mCardView.getLayoutParams().height/15);
+            itemRowHolder.disLikesCount.setTextSize(itemRowHolder.mCardView.getLayoutParams().height/15);
 
 
-            itemRowHolder.llText.getLayoutParams().width = (itemRowHolder.deviceWidth/100)*70;
-            itemRowHolder.llText.getLayoutParams().height = itemRowHolder.mCardView.getLayoutParams().height;
+//            itemRowHolder.llText.getLayoutParams().width = (itemRowHolder.deviceWidth/100)*70;
+//            itemRowHolder.llText.getLayoutParams().height = itemRowHolder.mCardView.getLayoutParams().height;
 
             Glide.with(mContext).load(dataList.get(i).get("image").toString()).into(itemRowHolder.ivPost);
             itemRowHolder.tvTitle.setText(dataList.get(i).get("title").toString());

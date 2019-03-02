@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content">
 
 
 
@@ -16,35 +16,39 @@
         app:cardBackgroundColor="@color/gradient_up"
         android:layout_height="100dp">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:id="@+id/fl_ad"
-            android:layout_height="match_parent">
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-            </com.google.android.gms.ads.AdView>
 
-        </FrameLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:weightSum="1"
             android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:id="@+id/ad_frame"
+                android:layout_height="match_parent">
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ads:adSize="BANNER"
+                android:layout_gravity="center"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+            </com.google.android.gms.ads.AdView>
+            </FrameLayout>
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/ll_post"
+                android:layout_weight="0.8"
                 android:layout_margin="5dp"
                 android:layout_height="wrap_content">
 
@@ -95,14 +99,26 @@
             </LinearLayout>
 
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.2"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="80dp"
-                android:src="@mipmap/ic_launcher"
-                android:id="@+id/iv_post_image"
-                android:scaleType="fitXY"
-                android:padding="15dp"
-                android:layout_height="80dp" />
+
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:id="@+id/iv_post_image"
+                    android:layout_centerInParent="true"
+                    android:layout_height="70dp" />
+
+
+
+
+            </RelativeLayout>
+
 
 
 

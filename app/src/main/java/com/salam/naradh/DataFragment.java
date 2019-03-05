@@ -776,9 +776,6 @@ public class DataFragment extends Fragment {
         rvPosts.setAdapter(new LimitDataAdapter(moviesList,getContext(),"movies"));
 
 
-
-
-
     }
 
     static class LoadingViewHolder extends RecyclerView.ViewHolder {

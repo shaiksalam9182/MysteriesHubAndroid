@@ -69,6 +69,11 @@ public class DescriptionView extends AppCompatActivity {
         if (phone.equalsIgnoreCase("")){
             imgLike.setVisibility(View.GONE);
             imgDisLike.setVisibility(View.GONE);
+        }else {
+            imgLike.setVisibility(View.GONE);
+            imgDisLike.setVisibility(View.GONE);
+            new AsyncGetSuggestionsData().execute();
+
         }
 
 
@@ -510,6 +515,54 @@ public class DescriptionView extends AppCompatActivity {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
+        }
+    }
+
+    private class AsyncGetSuggestionsData extends AsyncTask<Void,Void,JSONObject>{
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("android_id",android_id);
+                data.put("post_id",id);
+                data.put("type",type);
+
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                Log.e("sendingData",data.toString());
+                return postHelper.Post(URLUtils.verifySuggestion,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+//                Log.e("suggestionRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+
+                    if (jsonObject.optString("action").equalsIgnoreCase("nothing")){
+                        imgLike.setVisibility(View.VISIBLE);
+                        imgDisLike.setVisibility(View.VISIBLE);
+
+                    }
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                }else {
+                    imgDisLike.setVisibility(View.GONE);
+                    imgLike.setVisibility(View.GONE);
+                }
+            }
+
         }
     }
 }

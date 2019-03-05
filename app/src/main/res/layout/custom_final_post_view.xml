@@ -29,7 +29,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/ad_frame"
                 android:layout_height="match_parent">
             <com.google.android.gms.ads.AdView

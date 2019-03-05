@@ -250,11 +250,11 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Integer... integers) {
 
-            dataList.remove(dataList.size() - 1);
-            int scrollPosition = dataList.size();
-            dataAdapter.notifyItemRemoved(scrollPosition);
-            int currentSize = scrollPosition;
-            int nextLimit = currentSize + 10;
+
+//            int scrollPosition = dataList.size();
+//            dataAdapter.notifyItemRemoved(scrollPosition);
+//            int currentSize = scrollPosition;
+//            int nextLimit = currentSize + 10;
 
             if (phone.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
@@ -299,7 +299,7 @@ public class MoreData extends AppCompatActivity {
 
             if (jsonObject.optString("status").equalsIgnoreCase("success")) {
                 final JSONArray data = jsonObject.optJSONArray("data");
-
+                dataList.remove(dataList.size() - 1);
                 dataAdapter.notifyItemRemoved(dataList.size());
                 JSONObject temp;
                 for (int i = 1; i < data.length(); i++) {
@@ -485,11 +485,11 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Integer... integers) {
 
-            dataList.remove(dataList.size() - 1);
-            int scrollPosition = dataList.size();
-            dataAdapter.notifyItemRemoved(scrollPosition);
-            int currentSize = scrollPosition;
-            int nextLimit = currentSize + 10;
+
+//            int scrollPosition = dataList.size();
+//            dataAdapter.notifyItemRemoved(scrollPosition);
+//            int currentSize = scrollPosition;
+//            int nextLimit = currentSize + 10;
 
             if (phone.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
@@ -534,7 +534,7 @@ public class MoreData extends AppCompatActivity {
 
             if (jsonObject.optString("status").equalsIgnoreCase("success")) {
                 final JSONArray data = jsonObject.optJSONArray("data");
-
+                dataList.remove(dataList.size() - 1);
                 dataAdapter.notifyItemRemoved(dataList.size());
                 JSONObject temp;
                 for (int i = 1; i < data.length(); i++) {
@@ -716,11 +716,11 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Integer... integers) {
 
-            dataList.remove(dataList.size() - 1);
-            int scrollPosition = dataList.size();
-            dataAdapter.notifyItemRemoved(scrollPosition);
-            int currentSize = scrollPosition;
-            int nextLimit = currentSize + 10;
+
+//            int scrollPosition = dataList.size();
+////            dataAdapter.notifyItemRemoved(scrollPosition);
+////            int currentSize = scrollPosition;
+////            int nextLimit = currentSize + 10;
 
             if (phone.equalsIgnoreCase("")){
 
@@ -765,7 +765,7 @@ public class MoreData extends AppCompatActivity {
 
             if (jsonObject.optString("status").equalsIgnoreCase("success")) {
                 final JSONArray data = jsonObject.optJSONArray("data");
-
+                dataList.remove(dataList.size() - 1);
                 dataAdapter.notifyItemRemoved(dataList.size());
                 JSONObject temp;
                 for (int i = 1; i < data.length(); i++) {
@@ -941,11 +941,11 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Integer... integers) {
 
-            dataList.remove(dataList.size() - 1);
-            int scrollPosition = dataList.size();
-            dataAdapter.notifyItemRemoved(scrollPosition);
-            int currentSize = scrollPosition;
-            int nextLimit = currentSize + 10;
+//
+//            int scrollPosition = dataList.size();
+//            dataAdapter.notifyItemRemoved(scrollPosition);
+//            int currentSize = scrollPosition;
+//            int nextLimit = currentSize + 10;
 
             if (phone.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
@@ -988,7 +988,7 @@ public class MoreData extends AppCompatActivity {
 
             if (jsonObject.optString("status").equalsIgnoreCase("success")) {
                 final JSONArray data = jsonObject.optJSONArray("data");
-
+                dataList.remove(dataList.size() - 1);
                 dataAdapter.notifyItemRemoved(dataList.size());
                 JSONObject temp;
                 for (int i = 1; i < data.length(); i++) {

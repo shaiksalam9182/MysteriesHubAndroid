@@ -433,6 +433,7 @@ public class WriterActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.e("responseBody",t.getMessage());
                             Toast.makeText(WriterActivity.this, "Request failed", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -609,7 +610,7 @@ public class WriterActivity extends AppCompatActivity {
     private void initRetrofitClient() {
         OkHttpClient client = new OkHttpClient.Builder().build();
 
-        apiService = new Retrofit.Builder().baseUrl("http://206.189.132.139").client(client).build().create(ApiService.class);
+        apiService = new Retrofit.Builder().baseUrl("https://naaradh.in").client(client).build().create(ApiService.class);
     }
 
     private void uploadImage() {

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.irshulx.Editor;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,7 @@ public class DescriptionView extends AppCompatActivity {
 
     SharedPreferences sd;
     SharedPreferences.Editor edit;
+    AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,10 @@ public class DescriptionView extends AppCompatActivity {
         if (phone.equalsIgnoreCase("")){
             imgLike.setVisibility(View.GONE);
             imgDisLike.setVisibility(View.GONE);
+            adView = (AdView)findViewById(R.id.adView);
+            adView.setVisibility(View.VISIBLE);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
         }else {
             imgLike.setVisibility(View.GONE);
             imgDisLike.setVisibility(View.GONE);
@@ -547,13 +554,18 @@ public class DescriptionView extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
             if (jsonObject!=null){
-//                Log.e("suggestionRes",jsonObject.toString());
+                Log.e("suggestionRes",jsonObject.toString());
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
 
                     if (jsonObject.optString("action").equalsIgnoreCase("nothing")){
                         imgLike.setVisibility(View.VISIBLE);
                         imgDisLike.setVisibility(View.VISIBLE);
 
+                    }else {
+                        adView = (AdView)findViewById(R.id.adView);
+                        adView.setVisibility(View.VISIBLE);
+                        AdRequest adRequest = new AdRequest.Builder().build();
+                        adView.loadAd(adRequest);
                     }
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();

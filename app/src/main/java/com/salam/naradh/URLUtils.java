@@ -39,4 +39,5 @@ public class URLUtils {
     public static final String demoAlien = base+"demo_alien";
     public static final String demoMovie = base+"demo_movie";
     public static final String verifySuggestion = base+"verify_suggestion";
+    public static final String checkUpdate = base+"update_check";
 }

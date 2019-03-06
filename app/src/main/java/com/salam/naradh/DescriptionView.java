@@ -83,6 +83,17 @@ public class DescriptionView extends AppCompatActivity {
 
         }
 
+        imgShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, URLUtils.base+type+"?="+id);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
+
 
         editor.render(description);
         tvTitle.setText(title);

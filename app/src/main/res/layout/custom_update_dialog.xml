@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Update"
+        android:textSize="18dp"
+        android:id="@+id/tv_main_update"
+        android:textColor="@color/gradient_up"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Update"
+        android:textSize="13dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/tv_update_one"
+        android:paddingLeft="10dp"
+        android:textColor="@color/gradient_up"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Update"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:textSize="13dp"
+        android:id="@+id/tv_update_two"
+        android:layout_gravity="center"
+        android:textColor="@color/gradient_up"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Update"
+        android:textSize="13dp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/tv_update_three"
+        android:textColor="@color/gradient_up"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_height="wrap_content">
+
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/gradient_up"
+            android:layout_margin="15dp"
+            android:text="Cancel"
+            android:layout_weight="0.5"
+            android:id="@+id/bt_cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/gradient_up"
+            android:layout_marginTop="20dp"
+            android:text="Update"
+            android:layout_weight="0.5"
+            android:layout_margin="15dp"
+            android:id="@+id/bt_update"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

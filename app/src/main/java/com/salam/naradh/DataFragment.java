@@ -99,7 +99,6 @@ public class DataFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_data,container,false);
         // Inflate the layout for this fragment
 
-
         type = getArguments().getString("type");
 
         rlSlider = (RelativeLayout)v.findViewById(R.id.rl_slider);
@@ -257,7 +256,7 @@ public class DataFragment extends Fragment {
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
             pdData.setVisibility(View.GONE);
-//            Log.e("readPostsRes",jsonObject.toString());
+            Log.e("readPostsRes",jsonObject.toString());
             if (jsonObject!=null){
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     parseJsondata(jsonObject);
@@ -283,41 +282,51 @@ public class DataFragment extends Fragment {
 
     private void parseJsondata(JSONObject jsonObject) {
         final JSONArray data = jsonObject.optJSONArray("data");
-        JSONObject temp;
-        for (int i = 1;i<data.length();i++){
-            map = new HashMap<String, String>();
-            temp = data.optJSONObject(i);
-            map.put("post_id",temp.optString("post_id"));
-            map.put("title",temp.optString("title"));
-            map.put("description",temp.optString("description"));
-            map.put("post_by",temp.optString("post_by"));
-            map.put("image",temp.optString("image"));
-            map.put("likes_count",temp.optString("likes_count"));
-            map.put("dis_likes_count",temp.optString("dis_likes_count"));
+        if (data!=null && data.length()!=0){
+            JSONObject temp;
+            HashMap<String,String> adMap;
+            for (int i = 1;i<data.length();i++){
+                map = new HashMap<String, String>();
+                temp = data.optJSONObject(i);
+                if (i%3==0){
+                    adMap = new HashMap<String, String>();
+                    adMap.put("type","ad");
+                    postList.add(adMap);
+                }
+                map.put("post_id",temp.optString("post_id"));
+                map.put("title",temp.optString("title"));
+                map.put("description",temp.optString("description"));
+                map.put("post_by",temp.optString("post_by"));
+                map.put("image",temp.optString("image"));
+                map.put("type","data");
+                map.put("likes_count",temp.optString("likes_count"));
+                map.put("dis_likes_count",temp.optString("dis_likes_count"));
 
-            postList.add(map);
+                postList.add(map);
 
-        }
-
-        Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
-        tvTitle.setText(data.optJSONObject(0).optString("title"));
-
-        ivMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = data.optJSONObject(0).optString("post_id");
-                String title = data.optJSONObject(0).optString("title");
-                String description =  data.optJSONObject(0).optString("description");
-                String type = "posts";
-
-                Intent descView = new Intent(getContext(),DescriptionView.class);
-                descView.putExtra("id",id);
-                descView.putExtra("title",title);
-                descView.putExtra("description",description);
-                descView.putExtra("type",type);
-                startActivity(descView);
             }
-        });
+
+            Log.e("postList",postList.toString());
+
+            Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+            tvTitle.setText(data.optJSONObject(0).optString("title"));
+
+            ivMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = data.optJSONObject(0).optString("post_id");
+                    String title = data.optJSONObject(0).optString("title");
+                    String description =  data.optJSONObject(0).optString("description");
+                    String type = "posts";
+
+                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    descView.putExtra("id",id);
+                    descView.putExtra("title",title);
+                    descView.putExtra("description",description);
+                    descView.putExtra("type",type);
+                    startActivity(descView);
+                }
+            });
 
 //        mPager.setAdapter(new SliderAdapter(getActivity(),postList));
 //        indicator.setViewPager(mPager);
@@ -327,11 +336,11 @@ public class DataFragment extends Fragment {
 
 
 
-        //rvPosts.setHasFixedSize(true);
-        rvPosts.setNestedScrollingEnabled(true);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+            //rvPosts.setHasFixedSize(true);
+            rvPosts.setNestedScrollingEnabled(true);
+            rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        rvPosts.setAdapter(new LimitDataAdapter(postList,getContext(),"posts"));
+            rvPosts.setAdapter(new LimitDataAdapter(postList,getContext(),"posts"));
 //        rvPosts.setItemAnimator(new DefaultItemAnimator());
 
 
@@ -362,6 +371,11 @@ public class DataFragment extends Fragment {
 //
 //            }
 //        });
+        }else {
+            Toast.makeText(getContext(),"Data not found",Toast.LENGTH_LONG).show();
+            tvMore.setVisibility(View.GONE);
+        }
+
 
 
     }
@@ -446,50 +460,63 @@ public class DataFragment extends Fragment {
 
     private void parsePlacesJsondata(JSONObject jsonObject) {
         final JSONArray data = jsonObject.optJSONArray("data");
-        JSONObject temp;
-        for (int i = 1;i<data.length();i++){
-            map = new HashMap<String, String>();
-            temp = data.optJSONObject(i);
-            map.put("place_id",temp.optString("place_id"));
-            map.put("title",temp.optString("title"));
-            map.put("description",temp.optString("description"));
-            map.put("post_by",temp.optString("post_by"));
-            map.put("image",temp.optString("image"));
-            map.put("likes_count",temp.optString("likes_count"));
-            map.put("dis_likes_count",temp.optString("dis_likes_count"));
+        if (data!=null && data.length()!=0){
+            JSONObject temp;
+            HashMap<String,String> adMap;
+            for (int i = 1;i<data.length();i++){
+                map = new HashMap<String, String>();
+                temp = data.optJSONObject(i);
+                if (i%3==0){
+                    adMap = new HashMap<String, String>();
+                    adMap.put("type","ad");
+                    postList.add(adMap);
+                }
+                map.put("place_id",temp.optString("place_id"));
+                map.put("title",temp.optString("title"));
+                map.put("description",temp.optString("description"));
+                map.put("post_by",temp.optString("post_by"));
+                map.put("image",temp.optString("image"));
+                map.put("type","data");
+                map.put("likes_count",temp.optString("likes_count"));
+                map.put("dis_likes_count",temp.optString("dis_likes_count"));
 
-            placesList.add(map);
+                placesList.add(map);
 
-        }
+            }
 
 //        mPager.setAdapter(new SliderAdapter(getActivity(),placesList));
 //        indicator.setViewPager(mPager);
 
-        Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
-        tvTitle.setText(data.optJSONObject(0).optString("title"));
+            Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+            tvTitle.setText(data.optJSONObject(0).optString("title"));
 
-        ivMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = data.optJSONObject(0).optString("place_id");
-                String title = data.optJSONObject(0).optString("title");
-                String description =  data.optJSONObject(0).optString("description");
-                String type = "places";
+            ivMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = data.optJSONObject(0).optString("place_id");
+                    String title = data.optJSONObject(0).optString("title");
+                    String description =  data.optJSONObject(0).optString("description");
+                    String type = "places";
 
-                Intent descView = new Intent(getContext(),DescriptionView.class);
-                descView.putExtra("id",id);
-                descView.putExtra("title",title);
-                descView.putExtra("description",description);
-                descView.putExtra("type",type);
-                startActivity(descView);
-            }
-        });
+                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    descView.putExtra("id",id);
+                    descView.putExtra("title",title);
+                    descView.putExtra("description",description);
+                    descView.putExtra("type",type);
+                    startActivity(descView);
+                }
+            });
 
-        rvPosts.setHasFixedSize(true);
-        rvPosts.setNestedScrollingEnabled(false);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvPosts.setItemAnimator(new DefaultItemAnimator());
-        rvPosts.setAdapter(new LimitDataAdapter(placesList,getContext(),"places"));
+            rvPosts.setHasFixedSize(true);
+            rvPosts.setNestedScrollingEnabled(false);
+            rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvPosts.setItemAnimator(new DefaultItemAnimator());
+            rvPosts.setAdapter(new LimitDataAdapter(placesList,getContext(),"places"));
+        }else {
+            Toast.makeText(getContext(),"Data not found",Toast.LENGTH_LONG).show();
+            tvMore.setVisibility(View.GONE);
+        }
+
 
 
 //        Log.e("dataList",datalist.toString());
@@ -572,52 +599,65 @@ public class DataFragment extends Fragment {
 
     private void parseAliensJsondata(JSONObject jsonObject) {
         final JSONArray data = jsonObject.optJSONArray("data");
-        JSONObject temp;
-        for (int i = 1;i<data.length();i++){
-            map = new HashMap<String, String>();
-            temp = data.optJSONObject(i);
-            map.put("alienPost_id",temp.optString("alienPost_id"));
-            map.put("title",temp.optString("title"));
-            map.put("description",temp.optString("description"));
-            map.put("post_by",temp.optString("post_by"));
-            map.put("image",temp.optString("image"));
-            map.put("likes_count",temp.optString("likes_count"));
-            map.put("dis_likes_count",temp.optString("dis_likes_count"));
+        if (data!=null && data.length()!=0){
+            JSONObject temp;
+            HashMap<String,String> adMap;
+            for (int i = 1;i<data.length();i++){
+                map = new HashMap<String, String>();
+                temp = data.optJSONObject(i);
+                if ( i%3==0){
+                    adMap = new HashMap<String, String>();
+                    adMap.put("type","ad");
+                    postList.add(adMap);
+                }
+                map.put("alienPost_id",temp.optString("alienPost_id"));
+                map.put("title",temp.optString("title"));
+                map.put("description",temp.optString("description"));
+                map.put("post_by",temp.optString("post_by"));
+                map.put("image",temp.optString("image"));
+                map.put("type","data");
+                map.put("likes_count",temp.optString("likes_count"));
+                map.put("dis_likes_count",temp.optString("dis_likes_count"));
 
-            aliensList.add(map);
+                aliensList.add(map);
 
 
 
-        }
+            }
 //        mPager.setAdapter(new SliderAdapter(getActivity(),aliensList));
 //        indicator.setViewPager(mPager);
 
-        Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
-        tvTitle.setText(data.optJSONObject(0).optString("title"));
+            Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+            tvTitle.setText(data.optJSONObject(0).optString("title"));
 
 
-        ivMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = data.optJSONObject(0).optString("alienPost_id");
-                String title = data.optJSONObject(0).optString("title");
-                String description =  data.optJSONObject(0).optString("description");
-                String type = "aliens";
+            ivMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = data.optJSONObject(0).optString("alienPost_id");
+                    String title = data.optJSONObject(0).optString("title");
+                    String description =  data.optJSONObject(0).optString("description");
+                    String type = "aliens";
 
-                Intent descView = new Intent(getContext(),DescriptionView.class);
-                descView.putExtra("id",id);
-                descView.putExtra("title",title);
-                descView.putExtra("description",description);
-                descView.putExtra("type",type);
-                startActivity(descView);
-            }
-        });
+                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    descView.putExtra("id",id);
+                    descView.putExtra("title",title);
+                    descView.putExtra("description",description);
+                    descView.putExtra("type",type);
+                    startActivity(descView);
+                }
+            });
 
-        rvPosts.setHasFixedSize(true);
-        rvPosts.setNestedScrollingEnabled(false);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvPosts.setItemAnimator(new DefaultItemAnimator());
-        rvPosts.setAdapter(new LimitDataAdapter(aliensList,getContext(),"aliens"));
+            rvPosts.setHasFixedSize(true);
+            rvPosts.setNestedScrollingEnabled(false);
+            rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvPosts.setItemAnimator(new DefaultItemAnimator());
+            rvPosts.setAdapter(new LimitDataAdapter(aliensList,getContext(),"aliens"));
+        }else {
+            Toast.makeText(getContext(),"Data not found",Toast.LENGTH_LONG).show();
+            tvMore.setVisibility(View.GONE);
+        }
+
 
 
 //        Log.e("dataList",datalist.toString());
@@ -701,51 +741,61 @@ public class DataFragment extends Fragment {
 
     private void parseMoviesJsondata(JSONObject jsonObject) {
         final JSONArray data = jsonObject.optJSONArray("data");
-        JSONObject temp;
-        for (int i = 1;i<data.length();i++){
-            map = new HashMap<String, String>();
-            temp = data.optJSONObject(i);
-            map.put("movie_id",temp.optString("movie_id"));
-            map.put("title",temp.optString("title"));
-            map.put("description",temp.optString("description"));
-            map.put("post_by",temp.optString("post_by"));
-            map.put("image",temp.optString("image"));
-            map.put("likes_count",temp.optString("likes_count"));
-            map.put("dis_likes_count",temp.optString("dis_likes_count"));
-            moviesList.add(map);
-        }
+        if (data!=null &&data.length()!=0){
+            JSONObject temp;
+            HashMap<String,String> adMap;
+            for (int i = 1;i<data.length();i++){
+                map = new HashMap<String, String>();
+                temp = data.optJSONObject(i);
+                if ( i%3==0){
+                    adMap = new HashMap<String, String>();
+                    adMap.put("type","ad");
+                    postList.add(adMap);
+                }
+                map.put("movie_id",temp.optString("movie_id"));
+                map.put("title",temp.optString("title"));
+                map.put("description",temp.optString("description"));
+                map.put("post_by",temp.optString("post_by"));
+                map.put("image",temp.optString("image"));
+                map.put("type","data");
+                map.put("likes_count",temp.optString("likes_count"));
+                map.put("dis_likes_count",temp.optString("dis_likes_count"));
+                moviesList.add(map);
+            }
 
 //        mPager.setAdapter(new SliderAdapter(getActivity(),moviesList));
 ////        Log.e("dataList",datalist.toString());
 //        indicator.setViewPager(mPager);
-        Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
-        tvTitle.setText(data.optJSONObject(0).optString("title"));
+            Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+            tvTitle.setText(data.optJSONObject(0).optString("title"));
 
-        ivMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = data.optJSONObject(0).optString("movie_id");
-                String title = data.optJSONObject(0).optString("title");
-                String description =  data.optJSONObject(0).optString("description");
-                String type = "movies";
+            ivMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id = data.optJSONObject(0).optString("movie_id");
+                    String title = data.optJSONObject(0).optString("title");
+                    String description =  data.optJSONObject(0).optString("description");
+                    String type = "movies";
 
-                Intent descView = new Intent(getContext(),DescriptionView.class);
-                descView.putExtra("id",id);
-                descView.putExtra("title",title);
-                descView.putExtra("description",description);
-                descView.putExtra("type",type);
-                startActivity(descView);
-            }
-        });
-
-
-        rvPosts.setHasFixedSize(true);
-        rvPosts.setNestedScrollingEnabled(false);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvPosts.setItemAnimator(new DefaultItemAnimator());
-        rvPosts.setAdapter(new LimitDataAdapter(moviesList,getContext(),"movies"));
+                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    descView.putExtra("id",id);
+                    descView.putExtra("title",title);
+                    descView.putExtra("description",description);
+                    descView.putExtra("type",type);
+                    startActivity(descView);
+                }
+            });
 
 
+            rvPosts.setHasFixedSize(true);
+            rvPosts.setNestedScrollingEnabled(false);
+            rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvPosts.setItemAnimator(new DefaultItemAnimator());
+            rvPosts.setAdapter(new LimitDataAdapter(moviesList,getContext(),"movies"));
+        }else {
+            Toast.makeText(getContext(),"Data not found",Toast.LENGTH_LONG).show();
+            tvMore.setVisibility(View.GONE);
+        }
 
 
 

@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,14 +62,19 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ItemViewHolder itemRowHolder = (ItemViewHolder) holder;
 
 
+            itemRowHolder.adView.setVisibility(View.GONE);
             itemRowHolder.mCardView.getLayoutParams().height = (int) (itemRowHolder.deviceWidth/3.74);
 
-            itemRowHolder.ivPost.getLayoutParams().width = (itemRowHolder.deviceWidth/100)*30;
-            itemRowHolder.ivPost.getLayoutParams().height = itemRowHolder.mCardView.getLayoutParams().height;
+            itemRowHolder.ivPost.getLayoutParams().width = (int) (itemRowHolder.mCardView.getLayoutParams().height/1.3);
+            itemRowHolder.ivPost.getLayoutParams().height = (int) (itemRowHolder.mCardView.getLayoutParams().height/1.3);
+
+            itemRowHolder.tvTitle.setTextSize(itemRowHolder.mCardView.getLayoutParams().height/15);
+            itemRowHolder.likesCount.setTextSize(itemRowHolder.mCardView.getLayoutParams().height/15);
+            itemRowHolder.disLikesCount.setTextSize(itemRowHolder.mCardView.getLayoutParams().height/15);
 
 
-            itemRowHolder.llText.getLayoutParams().width = (itemRowHolder.deviceWidth/100)*70;
-            itemRowHolder.llText.getLayoutParams().height = itemRowHolder.mCardView.getLayoutParams().height;
+//            itemRowHolder.llText.getLayoutParams().width = (itemRowHolder.deviceWidth/100)*70;
+//            itemRowHolder.llText.getLayoutParams().height = itemRowHolder.mCardView.getLayoutParams().height;
 
             Glide.with(mContext).load(dataList.get(i).get("image").toString()).into(itemRowHolder.ivPost);
             itemRowHolder.tvTitle.setText(dataList.get(i).get("title").toString());
@@ -147,7 +153,7 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         }else if (holder instanceof LoadingViewHolder){
 
-            LoadingViewHolder itemRowHolder = (LoadingViewHolder) holder;
+            showLoadingView((LoadingViewHolder) holder, i);
 
         }
 
@@ -157,12 +163,19 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
+    private void showLoadingView(LoadingViewHolder holder, int i) {
+        holder.progressBar.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public int getItemCount() {
         return dataList.size();
     }
 
-
+    @Override
+    public int getItemViewType(int position) {
+        return dataList.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+    }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder{
 
@@ -172,6 +185,7 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         LinearLayout llText;
         TextView tvTitle,likesCount,disLikesCount;
         int deviceWidth,deviceHeight;
+        AdView adView;
 
 
 
@@ -188,6 +202,7 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             deviceWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
             deviceHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+            adView = (AdView)itemView.findViewById(R.id.adView);
 
         }
     }

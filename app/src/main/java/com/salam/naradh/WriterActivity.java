@@ -433,6 +433,7 @@ public class WriterActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.e("responseBody",t.getMessage());
                             Toast.makeText(WriterActivity.this, "Request failed", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -609,7 +610,7 @@ public class WriterActivity extends AppCompatActivity {
     private void initRetrofitClient() {
         OkHttpClient client = new OkHttpClient.Builder().build();
 
-        apiService = new Retrofit.Builder().baseUrl("http://206.189.132.139").client(client).build().create(ApiService.class);
+        apiService = new Retrofit.Builder().baseUrl("https://naaradh.in").client(client).build().create(ApiService.class);
     }
 
     private void uploadImage() {
@@ -776,8 +777,21 @@ public class WriterActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             pdLoading.dismiss();
             if (jsonObject!=null){
-                if (jsonObject.optString("status").equalsIgnoreCase("success")){
-                    Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
+                if (jsonObject.optString("status").equalsIgnoreCase("success")) {
+                    Toast.makeText(WriterActivity.this, "Successfully posted", Toast.LENGTH_LONG).show();
+                    new AlertDialog.Builder(WriterActivity.this)
+                            .setTitle("Thanks")
+                            .setMessage("Thanks for contributing. Your Post is under review. If your post meets our guidelines, we will approve it.")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+
+                            })
+                            .show();
+
+
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
                         Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
@@ -837,6 +851,17 @@ public class WriterActivity extends AppCompatActivity {
             if (jsonObject!=null){
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
+                    new AlertDialog.Builder(WriterActivity.this)
+                            .setTitle("Thanks")
+                            .setMessage("Thanks for contributing. Your Post is under review. If your post meets our guidelines, we will approve it.")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+
+                            })
+                            .show();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
                         Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
@@ -892,6 +917,17 @@ public class WriterActivity extends AppCompatActivity {
             if (jsonObject!=null){
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
+                    new AlertDialog.Builder(WriterActivity.this)
+                            .setTitle("Thanks")
+                            .setMessage("Thanks for contributing. Your Post is under review. If your post meets our guidelines, we will approve it.")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+
+                            })
+                            .show();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
                         Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
@@ -947,6 +983,17 @@ public class WriterActivity extends AppCompatActivity {
             if (jsonObject!=null){
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     Toast.makeText(WriterActivity.this,"Successfully posted",Toast.LENGTH_LONG).show();
+                    new AlertDialog.Builder(WriterActivity.this)
+                            .setTitle("Thanks")
+                            .setMessage("Thanks for contributing. Your Post is under review. If your post meets our guidelines, we will approve it.")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+
+                            })
+                            .show();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
                         Toast.makeText(WriterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();

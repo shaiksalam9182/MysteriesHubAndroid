@@ -2,7 +2,7 @@ package com.salam.naradh;
 
 public class URLUtils {
 
-    public static final String base = "http://206.189.132.139/";
+    public static final String base = "https://naaradh.in/";
     public static final String register = base+"register";
     public static final String verify = base+"verify";
     public static final String login = base+"login";
@@ -38,4 +38,7 @@ public class URLUtils {
     public static final String demoPlace = base+"demo_place";
     public static final String demoAlien = base+"demo_alien";
     public static final String demoMovie = base+"demo_movie";
+    public static final String verifySuggestion = base+"verify_suggestion";
+    public static final String checkUpdate = base+"update_check";
+    public static final String getData = base+"get_data";
 }

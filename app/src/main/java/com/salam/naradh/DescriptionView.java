@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.irshulx.Editor;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,11 +28,12 @@ public class DescriptionView extends AppCompatActivity {
     ImageView imgBack,imgShare;
     TextView tvTitle,tvStatus;
     Editor editor;
-    String title,description,id,type,phone,token,android_id;
+    String title,description,id,type,phone,token,android_id,comingFrom = "";
     ImageView imgLike,imgDisLike;
 
     SharedPreferences sd;
     SharedPreferences.Editor edit;
+    AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class DescriptionView extends AppCompatActivity {
         android_id = sd.getString("android_id","");
 
 
+
+
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -52,6 +57,8 @@ public class DescriptionView extends AppCompatActivity {
         description = getIntent().getStringExtra("description");
         type = getIntent().getStringExtra("type");
         id = getIntent().getStringExtra("id");
+        id = id.replace(" ","");
+        comingFrom = getIntent().getStringExtra("url");
 
 
         imgBack = (ImageView)findViewById(R.id.img_back);
@@ -69,11 +76,52 @@ public class DescriptionView extends AppCompatActivity {
         if (phone.equalsIgnoreCase("")){
             imgLike.setVisibility(View.GONE);
             imgDisLike.setVisibility(View.GONE);
+            adView = (AdView)findViewById(R.id.adView);
+            adView.setVisibility(View.VISIBLE);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
+        }else {
+            imgLike.setVisibility(View.GONE);
+            imgDisLike.setVisibility(View.GONE);
+            new AsyncGetSuggestionsData().execute();
+
+        }
+
+        imgShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, URLUtils.base+type+"?id="+id);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
+
+        if (comingFrom!=null){
+            if (phone.equalsIgnoreCase("")){
+                imgLike.setVisibility(View.GONE);
+                imgDisLike.setVisibility(View.GONE);
+                adView = (AdView)findViewById(R.id.adView);
+                adView.setVisibility(View.VISIBLE);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                adView.loadAd(adRequest);
+                new AsynGetData().execute();
+            }else {
+                imgLike.setVisibility(View.GONE);
+                imgDisLike.setVisibility(View.GONE);
+                new AsynGetData().execute();
+                new AsyncGetSuggestionsData().execute();
+                Toast.makeText(DescriptionView.this,"Here we will call new api along suggestion api",Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            editor.render(description);
+            tvTitle.setText(title);
         }
 
 
-        editor.render(description);
-        tvTitle.setText(title);
+
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -509,6 +557,106 @@ public class DescriptionView extends AppCompatActivity {
                 }else {
                     Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
+            }
+        }
+    }
+
+    private class AsyncGetSuggestionsData extends AsyncTask<Void,Void,JSONObject>{
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("phone",phone);
+                data.put("token",token);
+                data.put("android_id",android_id);
+                data.put("post_id",id);
+                data.put("type",type);
+
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                Log.e("sendingData",data.toString());
+                return postHelper.Post(URLUtils.verifySuggestion,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("suggestionRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+
+                    if (jsonObject.optString("action").equalsIgnoreCase("nothing")){
+                        imgLike.setVisibility(View.VISIBLE);
+                        imgDisLike.setVisibility(View.VISIBLE);
+
+                    }else {
+                        adView = (AdView)findViewById(R.id.adView);
+                        adView.setVisibility(View.VISIBLE);
+                        AdRequest adRequest = new AdRequest.Builder().build();
+                        adView.loadAd(adRequest);
+                    }
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                }else {
+                    imgDisLike.setVisibility(View.GONE);
+                    imgLike.setVisibility(View.GONE);
+                }
+            }
+
+        }
+    }
+
+    private class AsynGetData extends AsyncTask<Void,Void,JSONObject>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            JSONObject data = new JSONObject();
+
+            try {
+                data.put("type",type);
+                data.put("id","+"+id);
+                Log.e("sendingData",data.toString());
+                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                return postHelper.Post(URLUtils.getData,data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (jsonObject!=null){
+                Log.e("getDataRes",jsonObject.toString());
+                if (jsonObject.optString("status").equalsIgnoreCase("success")){
+                    JSONObject data = jsonObject.optJSONObject("data");
+                    tvTitle.setText(data.optString("title"));
+                    editor.render(data.optString("description"));
+
+                }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
+                    Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                }
+            }else {
+                Toast.makeText(DescriptionView.this,"Something went wrong.Check your network connection",Toast.LENGTH_LONG).show();
             }
         }
     }

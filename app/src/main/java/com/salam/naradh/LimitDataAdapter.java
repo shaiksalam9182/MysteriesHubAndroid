@@ -44,7 +44,7 @@ class LimitDataAdapter extends RecyclerView.Adapter<LimitDataAdapter.MyViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
 
 
         myViewHolder.mCardView.getLayoutParams().height = (int) (myViewHolder.deviceWidth/3.74);
@@ -54,7 +54,42 @@ class LimitDataAdapter extends RecyclerView.Adapter<LimitDataAdapter.MyViewHolde
             AdRequest adRequest = new AdRequest.Builder().build();
             myViewHolder.adView.loadAd(adRequest);
             myViewHolder.adView.setAdListener(new AdListener(){
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    super.onAdFailedToLoad(i);
+                    Log.e("adData","adFailed");
+                    myViewHolder.mCardView.setVisibility(View.GONE);
+                }
 
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    Log.e("adData","adClosed");
+                }
+
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    Log.e("adData","adLoaded");
+                }
+
+                @Override
+                public void onAdImpression() {
+                    super.onAdImpression();
+                    Log.e("adData","adImpression");
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+                    super.onAdLeftApplication();
+                    Log.e("adData","adLeftApplication");
+                }
+
+                @Override
+                public void onAdOpened() {
+                    super.onAdOpened();
+                    Log.e("adData","adOpened");
+                }
             });
             myViewHolder.adFrame.setVisibility(View.VISIBLE);
         }else {

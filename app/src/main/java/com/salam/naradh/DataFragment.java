@@ -307,8 +307,10 @@ public class DataFragment extends Fragment {
             }
 
             Log.e("postList",postList.toString());
+            if (getContext()!=null){
+                Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
+            }
 
-            Glide.with(getContext()).load(data.optJSONObject(0).optString("image")).into(ivMain);
             tvTitle.setText(data.optJSONObject(0).optString("title"));
 
             ivMain.setOnClickListener(new View.OnClickListener() {

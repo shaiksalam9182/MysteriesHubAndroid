@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.irshulx.Editor;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -80,6 +81,43 @@ public class DescriptionView extends AppCompatActivity {
             adView.setVisibility(View.VISIBLE);
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
+            adView.setAdListener(new AdListener(){
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    super.onAdFailedToLoad(i);
+                    Log.e("adData","adFailed");
+                }
+
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    Log.e("adData","adClosed");
+                }
+
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    Log.e("adData","adLoaded");
+                }
+
+                @Override
+                public void onAdImpression() {
+                    super.onAdImpression();
+                    Log.e("adData","adImpression");
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+                    super.onAdLeftApplication();
+                    Log.e("adData","adLeftApplication");
+                }
+
+                @Override
+                public void onAdOpened() {
+                    super.onAdOpened();
+                    Log.e("adData","adOpened");
+                }
+            });
         }else {
             imgLike.setVisibility(View.GONE);
             imgDisLike.setVisibility(View.GONE);

@@ -27,6 +27,7 @@ public class UrlHandler extends AppCompatActivity {
                 Log.e("type,id", type + "\n" + id);
 
                 Intent descriptionView = new Intent(UrlHandler.this,DescriptionView.class);
+                descriptionView.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 descriptionView.putExtra("type",type);
                 descriptionView.putExtra("id",id);
                 descriptionView.putExtra("url","url");

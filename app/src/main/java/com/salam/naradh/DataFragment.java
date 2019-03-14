@@ -343,6 +343,9 @@ public class DataFragment extends Fragment {
             rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
 
             rvPosts.setAdapter(new LimitDataAdapter(postList,getContext(),"posts"));
+
+
+
 //        rvPosts.setItemAnimator(new DefaultItemAnimator());
 
 

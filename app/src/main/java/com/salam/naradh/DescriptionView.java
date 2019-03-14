@@ -665,7 +665,7 @@ public class DescriptionView extends AppCompatActivity {
 
             try {
                 data.put("type",type);
-                data.put("id","+"+id);
+                data.put("id",id);
                 Log.e("sendingData",data.toString());
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.getData,data.toString());

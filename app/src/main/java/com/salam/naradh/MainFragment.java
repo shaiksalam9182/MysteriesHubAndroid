@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +27,7 @@ public class MainFragment extends Fragment {
     ViewPager viewPager;
     ProgressBar progressBar;
     String[] categories =new String[]{"Posts","Places","Aliens","Movies"};
+    AdView adView;
 
 
     public MainFragment() {
@@ -40,6 +44,9 @@ public class MainFragment extends Fragment {
 
         tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         viewPager = (ViewPager)v.findViewById(R.id.view_pager);
+        adView  = (AdView)v.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 //        progressBar = (ProgressBar)v.findViewById(R.id.pb_main);
 
 

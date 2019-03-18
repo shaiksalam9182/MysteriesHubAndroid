@@ -430,10 +430,10 @@ public class MoreData extends AppCompatActivity {
 
 
 
-        rvMore.setHasFixedSize(true);
+//        rvMore.setHasFixedSize(true);
         rvMore.setNestedScrollingEnabled(false);
         rvMore.setLayoutManager(new LinearLayoutManager(MoreData.this));
-        rvMore.setItemAnimator(new DefaultItemAnimator());
+//        rvMore.setItemAnimator(new DefaultItemAnimator());
         dataAdapter = new DataAdapter(dataList,MoreData.this,"places");
         rvMore.setAdapter(dataAdapter);
 
@@ -667,10 +667,10 @@ public class MoreData extends AppCompatActivity {
 //        indicator.setViewPager(mPager);
 
 
-        rvMore.setHasFixedSize(true);
-        rvMore.setNestedScrollingEnabled(false);
+//        rvMore.setHasFixedSize(true);
+        rvMore.setNestedScrollingEnabled(true);
         rvMore.setLayoutManager(new LinearLayoutManager(MoreData.this));
-        rvMore.setItemAnimator(new DefaultItemAnimator());
+//        rvMore.setItemAnimator(new DefaultItemAnimator());
         dataAdapter = new DataAdapter(dataList,MoreData.this,"aliens");
         rvMore.setAdapter(dataAdapter);
 
@@ -860,7 +860,7 @@ public class MoreData extends AppCompatActivity {
                         Toast.makeText(MoreData.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     }
                 }else {
-                    Toast.makeText(MoreData.this,"Error occured",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MoreData.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }else {
                 Toast.makeText(MoreData.this,"Server Error",Toast.LENGTH_LONG).show();
@@ -891,7 +891,7 @@ public class MoreData extends AppCompatActivity {
 
 
 
-        rvMore.setHasFixedSize(true);
+//        rvMore.setHasFixedSize(true);
         rvMore.setNestedScrollingEnabled(false);
         rvMore.setLayoutManager(new LinearLayoutManager(MoreData.this));
         rvMore.setItemAnimator(new DefaultItemAnimator());

@@ -54,11 +54,11 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView tvRegister;
 
-    EditText etPhone,etPassword;
+    EditText etEmail,etPassword;
 
     Button btLogin;
 
-    String phone,password,fcmToken;
+    String email,password,fcmToken;
 
     SignInButton googleSignIn;
 
@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         androidId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
 
-        etPhone = (EditText)findViewById(R.id.et_phone);
+        etEmail = (EditText)findViewById(R.id.et_email);
         etPassword = (EditText)findViewById(R.id.et_password);
 
         btLogin = (Button)findViewById(R.id.bt_login);
@@ -131,13 +131,13 @@ public class LoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                phone = "+"+countryCode+etPhone.getText().toString();
+                email = etEmail.getText().toString();
                 password = etPassword.getText().toString();
 
 
-                if (phone.equalsIgnoreCase("")||password.equalsIgnoreCase("")){
+                if (email.equalsIgnoreCase("")||password.equalsIgnoreCase("")){
                     Toast.makeText(LoginActivity.this,"Please fill all required fields",Toast.LENGTH_LONG).show();
-                }else if (!Patterns.PHONE.matcher(phone).matches()){
+                }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     Toast.makeText(LoginActivity.this,"Not a valid phone number",Toast.LENGTH_LONG).show();
                 }else {
                     new AsyncManualSignIn().execute();
@@ -335,11 +335,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void storeDetails(JSONObject jsonObject) {
-        editor.putString("phone",jsonObject.optString("phone"));
+        editor.putString("user_id",jsonObject.optString("user_id"));
         editor.putString("token",jsonObject.optString("token"));
         editor.putString("login_by",jsonObject.optString("login_by"));
         editor.putString("name",jsonObject.optString("fullname"));
-        editor.putString("android_id",jsonObject.optString("android_id"));
+        editor.putString("email",jsonObject.optString("email"));
+//        editor.putString("android_id",jsonObject.optString("android_id"));
         editor.commit();
         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
         finish();
@@ -412,12 +413,11 @@ public class LoginActivity extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data= new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("password",password);
                 data.put("login_by","manual");
                 data.put("device_type","Android");
                 data.put("fcm_token",fcmToken);
-                data.put("android_id",androidId);
 
                 PostHelper postHelper = new PostHelper(LoginActivity.this);
                 Log.e("sendingData",data.toString());

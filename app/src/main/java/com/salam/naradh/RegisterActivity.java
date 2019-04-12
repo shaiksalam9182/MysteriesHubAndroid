@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     TextInputLayout tilFullname,tilPhone,tilEmail,tilPassword,tilCnfPassword;
     Button btRegister;
-    EditText etFullName,etPhone,etEmal,etPassword,etCnfPassword;
+    EditText etFullName,etEmal,etPassword,etCnfPassword;
 
 
 
@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager callbackManager;
 
-    String name,phone,email,password,cnfPassword;
+    String name,email,password,cnfPassword;
 
 
 
@@ -106,7 +106,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         etFullName = (EditText)findViewById(R.id.et_fullname);
-        etPhone = (EditText)findViewById(R.id.et_phone);
         etEmal =(EditText)findViewById(R.id.et_email);
         etPassword = (EditText)findViewById(R.id.et_password);
         etCnfPassword = (EditText)findViewById(R.id.et_cnf_password);
@@ -241,26 +240,19 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 name = etFullName.getText().toString();
-                phone = "+"+countryCode+etPhone.getText().toString();
                 email = etEmal.getText().toString();
                 password = etPassword.getText().toString();
                 cnfPassword = etCnfPassword.getText().toString();
 
-                if (name.equalsIgnoreCase("")|| phone.equalsIgnoreCase("")||password.equalsIgnoreCase("")||cnfPassword.equalsIgnoreCase("")){
+                if (name.equalsIgnoreCase("")|| email.equalsIgnoreCase("")||password.equalsIgnoreCase("")||cnfPassword.equalsIgnoreCase("")){
                     Toast.makeText(RegisterActivity.this,"Please fill required fields",Toast.LENGTH_LONG).show();
-                }else if (!email.equalsIgnoreCase("")){
-                    {
-                        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                            Toast.makeText(RegisterActivity.this, "Not a valid Email", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }else if (!Patterns.PHONE.matcher(phone).matches()){
+                }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     Toast.makeText(RegisterActivity.this,"Not a valid Phone number",Toast.LENGTH_LONG).show();
                 }else if (!password.equalsIgnoreCase(cnfPassword)){
                     Toast.makeText(RegisterActivity.this,"Passwords are not matching",Toast.LENGTH_LONG).show();
                 }else {
 
-                    new AsyncSendManualData().execute(name,phone,email,password);
+                    new AsyncSendManualData().execute(name,email,password);
 //                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
 //                            phone,
 //                            60,
@@ -456,9 +448,8 @@ public class RegisterActivity extends AppCompatActivity {
 
             try {
                 data.put("fullname",strings[0]);
-                data.put("phone",strings[1]);
-                data.put("email",strings[2]);
-                data.put("password",strings[3]);
+                data.put("email",strings[1]);
+                data.put("password",strings[2]);
                 data.put("device_type","Android");
                 data.put("login_by","manual");
                 data.put("verified","No");
@@ -482,18 +473,10 @@ public class RegisterActivity extends AppCompatActivity {
             if (jsonObject!=null){
                 Log.e("google_res",jsonObject.toString());
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
-                    Intent verify = new Intent(RegisterActivity.this,VerifyPhone.class);
-                    verify.putExtra("login_by","manual");
-                    verify.putExtra("phone",phone);
+                    Intent verify = new Intent(RegisterActivity.this,LoginActivity.class);
                     startActivity(verify);
+                    finish();
                 }else {
-                    if (jsonObject.optString("code").equalsIgnoreCase("300")){
-                        Intent verify = new Intent(RegisterActivity.this,VerifyPhone.class);
-                        verify.putExtra("login_by","manual");
-                        verify.putExtra("phone",phone);
-                        startActivity(verify);
-                        Toast.makeText(RegisterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                    }
                     Toast.makeText(RegisterActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                 }
             }

@@ -31,6 +31,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:visibility="gone"
         android:layout_margin="10dp"
         android:weightSum="2">
 
@@ -38,6 +39,7 @@
             android:id="@+id/btn_google_sign"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:visibility="gone"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             tools:ignore="RtlHardcoded" />
@@ -49,6 +51,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:gravity="center"
             android:paddingBottom="12dp"
             android:paddingLeft="20dp"
@@ -73,6 +76,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_weight="1"
+            android:visibility="gone"
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content" />
 
@@ -112,6 +116,7 @@
         <com.hbb20.CountryCodePicker
             android:layout_width="match_parent"
             android:id="@+id/ccp"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             app:ccp_contentColor="@color/white"
             android:layout_height="wrap_content">
@@ -129,6 +134,7 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
             android:theme="@style/TextLabel"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             >
             <EditText
@@ -155,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:hint="Email(Optional)"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="20dp"
                 android:id="@+id/et_email"

@@ -59,7 +59,7 @@ public class DataFragment extends Fragment {
 
     ProgressBar pdData;
 
-    String phone,token,android_id = "";
+    String email,token,user_id = "";
     ArrayList<HashMap> postList,placesList,aliensList,moviesList;
     HashMap<String,String>  map;
     ImageView ivMain;
@@ -121,9 +121,9 @@ public class DataFragment extends Fragment {
         sd = getActivity().getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         editor = sd.edit();
 
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
         token = sd.getString("token","");
-        android_id = sd.getString("android_id","");
+        user_id = sd.getString("user_id","");
 
 
 
@@ -162,7 +162,7 @@ public class DataFragment extends Fragment {
         fabWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (phone.equalsIgnoreCase("")){
+                if (email.equalsIgnoreCase("")){
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setMessage("Please login to contribute");
                     builder.setCancelable(false);
@@ -211,13 +211,13 @@ public class DataFragment extends Fragment {
         protected JSONObject doInBackground(Void... voids) {
 
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
 
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
                     data.put("skip","0");
 
                     PostHelper postHelper = new PostHelper(getActivity());
@@ -232,9 +232,9 @@ public class DataFragment extends Fragment {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("phone",phone);
+                    data.put("email",email);
                     data.put("token",token);
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
                     data.put("skip","0");
 
                     PostHelper postHelper = new PostHelper(getActivity());
@@ -398,13 +398,13 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.demoUserPlaceLimit,data.toString());
@@ -418,10 +418,10 @@ public class DataFragment extends Fragment {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("phone",phone);
+                    data.put("email",email);
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.readPlacesLimit,data.toString());
@@ -538,13 +538,13 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.demoUserAlienLimit,data.toString());
@@ -557,10 +557,10 @@ public class DataFragment extends Fragment {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("phone",phone);
+                    data.put("email",email);
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.readALiensLimit,data.toString());
@@ -679,13 +679,13 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.demoUserMovieLimit,data.toString());
@@ -698,10 +698,10 @@ public class DataFragment extends Fragment {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("phone",phone);
+                    data.put("email",email);
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.readMoviesLimit,data.toString());
@@ -977,9 +977,9 @@ public class DataFragment extends Fragment {
 
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 data.put("skip",integers[0]);
                 PostHelper postHelper = new PostHelper(getContext());
                 return postHelper.Post(URLUtils.readPosts,data.toString());

@@ -30,7 +30,7 @@ public class HomeActivity extends AppCompatActivity
     String username;
     boolean transactionDone = false;
     boolean backpressed = false;
-    String phone = "";
+    String email = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity
         editor = sd.edit();
 
         username = sd.getString("name","");
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
 
-        if (phone.equalsIgnoreCase("")){
+        if (email.equalsIgnoreCase("")){
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
         }
@@ -129,7 +129,7 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_account) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                 builder.setMessage("Please login to access account section");
                 builder.setCancelable(false);
@@ -165,7 +165,7 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_feedback) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                 builder.setMessage("Please login to serve you better");
                 builder.setCancelable(false);

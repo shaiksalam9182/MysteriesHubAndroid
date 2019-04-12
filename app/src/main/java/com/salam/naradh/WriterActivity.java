@@ -85,7 +85,7 @@ public class WriterActivity extends AppCompatActivity {
 
     EditText etTitle;
 
-    String title,description,phone,token,extractedimage,android_id = "";
+    String title,description,email,token,extractedimage,user_id = "";
     SharedPreferences sd;
     SharedPreferences.Editor edit;
     String[] categories =new String[]{"Posts","Places","Aliens","Movies"};
@@ -102,9 +102,9 @@ public class WriterActivity extends AppCompatActivity {
         sd = getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         edit = sd.edit();
 
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
         token =sd.getString("token","");
-        android_id = sd.getString("android_id","");
+        user_id = sd.getString("user_id","");
 
         btnRender.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -753,7 +753,7 @@ public class WriterActivity extends AppCompatActivity {
 
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("title",title);
                 data.put("description",description);
@@ -761,7 +761,7 @@ public class WriterActivity extends AppCompatActivity {
                 data.put("user_published","1");
                 data.put("published","0");
                 data.put("image",extractedimage);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(WriterActivity.this);
                 return postHelper.Post(URLUtils.sendPost,data.toString());
             } catch (JSONException e) {
@@ -824,7 +824,7 @@ public class WriterActivity extends AppCompatActivity {
 
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("title",title);
                 data.put("description",description);
@@ -832,7 +832,7 @@ public class WriterActivity extends AppCompatActivity {
                 data.put("user_published","1");
                 data.put("published","0");
                 data.put("image",extractedimage);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(WriterActivity.this);
                 return postHelper.Post(URLUtils.sendPlace,data.toString());
             } catch (JSONException e) {
@@ -891,7 +891,7 @@ public class WriterActivity extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("title",title);
                 data.put("description",description);
@@ -899,7 +899,7 @@ public class WriterActivity extends AppCompatActivity {
                 data.put("user_published","1");
                 data.put("published","0");
                 data.put("image",extractedimage);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(WriterActivity.this);
                 return postHelper.Post(URLUtils.sendAlien,data.toString());
             } catch (JSONException e) {
@@ -957,7 +957,7 @@ public class WriterActivity extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("title",title);
                 data.put("description",description);
@@ -965,7 +965,7 @@ public class WriterActivity extends AppCompatActivity {
                 data.put("user_published","1");
                 data.put("published","0");
                 data.put("image",extractedimage);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(WriterActivity.this);
                 return postHelper.Post(URLUtils.sendMovie,data.toString());
             } catch (JSONException e) {

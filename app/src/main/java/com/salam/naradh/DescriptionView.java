@@ -29,7 +29,7 @@ public class DescriptionView extends AppCompatActivity {
     ImageView imgBack,imgShare;
     TextView tvTitle,tvStatus;
     Editor editor;
-    String title,description,id,type,phone,token,android_id,comingFrom = "";
+    String title,description,id,type,email,token,user_id,comingFrom = "";
     ImageView imgLike,imgDisLike;
 
     SharedPreferences sd;
@@ -44,9 +44,9 @@ public class DescriptionView extends AppCompatActivity {
         sd = getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         edit  = sd.edit();
 
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
         token = sd.getString("token","");
-        android_id = sd.getString("android_id","");
+        user_id = sd.getString("user_id","");
 
 
 
@@ -74,7 +74,7 @@ public class DescriptionView extends AppCompatActivity {
         imgDisLike = (ImageView)findViewById(R.id.img_disl_like);
 
 
-        if (phone.equalsIgnoreCase("")){
+        if (email.equalsIgnoreCase("")){
             imgLike.setVisibility(View.GONE);
             imgDisLike.setVisibility(View.GONE);
             adView = (AdView)findViewById(R.id.adView);
@@ -137,7 +137,7 @@ public class DescriptionView extends AppCompatActivity {
         });
 
         if (comingFrom!=null){
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 imgLike.setVisibility(View.GONE);
                 imgDisLike.setVisibility(View.GONE);
                 adView = (AdView)findViewById(R.id.adView);
@@ -227,10 +227,10 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("post_id",id);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.likePost,data.toString());
             } catch (JSONException e) {
@@ -275,10 +275,10 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("place_id",id);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.likePlace,data.toString());
             } catch (JSONException e) {
@@ -325,10 +325,10 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("alienPost_id",id);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.likeAlien,data.toString());
             } catch (JSONException e) {
@@ -374,10 +374,10 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("movie_id",id);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.likeMovie,data.toString());
             } catch (JSONException e) {
@@ -420,10 +420,10 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("post_id",id);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.disLikePost,data.toString());
             } catch (JSONException e) {
@@ -466,10 +466,10 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("place_id",id);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.disLikePlace,data.toString());
             } catch (JSONException e) {
@@ -512,10 +512,10 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("alienPost_id",id);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.disLikeAlien,data.toString());
             } catch (JSONException e) {
@@ -558,10 +558,10 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
                 data.put("movie_id",id);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(DescriptionView.this);
                 return postHelper.Post(URLUtils.disLikeMovie,data.toString());
             } catch (JSONException e) {
@@ -604,9 +604,9 @@ public class DescriptionView extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 data.put("post_id",id);
                 data.put("type",type);
 

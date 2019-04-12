@@ -33,7 +33,7 @@ public class MoreData extends AppCompatActivity {
     String type;
     SharedPreferences sd;
     SharedPreferences.Editor editor;
-    String phone,token,android_id = "";
+    String email,token,user_id = "";
     ArrayList<HashMap> dataList;
     HashMap<String,String> map;
     ProgressBar progressBar;
@@ -56,9 +56,9 @@ public class MoreData extends AppCompatActivity {
         sd = getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         editor = sd.edit();
         
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
         token = sd.getString("token","");
-        android_id = sd.getString("android_id","");
+        user_id = sd.getString("user_id","");
         
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
 
@@ -103,12 +103,12 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
                     data.put("skip","0");
 
                     PostHelper postHelper = new PostHelper(MoreData.this);
@@ -123,9 +123,9 @@ public class MoreData extends AppCompatActivity {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("phone",phone);
+                    data.put("email",email);
                     data.put("token",token);
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
                     data.put("skip","0");
 
                     PostHelper postHelper = new PostHelper(MoreData.this);
@@ -256,12 +256,12 @@ public class MoreData extends AppCompatActivity {
 //            int currentSize = scrollPosition;
 //            int nextLimit = currentSize + 10;
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
                 try {
 
                     data.put("token", token);
-                    data.put("android_id", android_id);
+                    data.put("user_id", user_id);
                     data.put("skip", integers[0]);
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return postHelper.Post(URLUtils.demoPost, data.toString());
@@ -273,9 +273,9 @@ public class MoreData extends AppCompatActivity {
             }else {
                 JSONObject data = new JSONObject();
                 try {
-                    data.put("phone", phone);
+                    data.put("email",email);
                     data.put("token", token);
-                    data.put("android_id", android_id);
+                    data.put("user_id", user_id);
                     data.put("skip", integers[0]);
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return postHelper.Post(URLUtils.readPosts, data.toString());
@@ -340,14 +340,14 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
 
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return  postHelper.Post(URLUtils.demoPlace,data.toString());
@@ -361,10 +361,10 @@ public class MoreData extends AppCompatActivity {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("phone",phone);
+                    data.put("email",email);
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return  postHelper.Post(URLUtils.readPlaces,data.toString());
@@ -491,12 +491,12 @@ public class MoreData extends AppCompatActivity {
 //            int currentSize = scrollPosition;
 //            int nextLimit = currentSize + 10;
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
                 try {
 
                     data.put("token", token);
-                    data.put("android_id", android_id);
+                    data.put("user_id", user_id);
                     data.put("skip", integers[0]);
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return postHelper.Post(URLUtils.demoPlace, data.toString());
@@ -508,9 +508,9 @@ public class MoreData extends AppCompatActivity {
             }else {
                 JSONObject data = new JSONObject();
                 try {
-                    data.put("phone", phone);
+                    data.put("email", email);
                     data.put("token", token);
-                    data.put("android_id", android_id);
+                    data.put("user_id", user_id);
                     data.put("skip", integers[0]);
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return postHelper.Post(URLUtils.readPlaces, data.toString());
@@ -577,14 +577,14 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
 
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return  postHelper.Post(URLUtils.demoAlien,data.toString());
@@ -598,10 +598,10 @@ public class MoreData extends AppCompatActivity {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("phone",phone);
+                    data.put("email",email);
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return  postHelper.Post(URLUtils.readAliens,data.toString());
@@ -722,12 +722,12 @@ public class MoreData extends AppCompatActivity {
 ////            int currentSize = scrollPosition;
 ////            int nextLimit = currentSize + 10;
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
 
                 JSONObject data = new JSONObject();
                 try {
                     data.put("token", token);
-                    data.put("android_id", android_id);
+                    data.put("user_id", user_id);
                     data.put("skip", integers[0]);
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return postHelper.Post(URLUtils.demoAlien, data.toString());
@@ -740,9 +740,9 @@ public class MoreData extends AppCompatActivity {
 
                 JSONObject data = new JSONObject();
                 try {
-                    data.put("phone", phone);
+                    data.put("email", email);
                     data.put("token", token);
-                    data.put("android_id", android_id);
+                    data.put("user_id", user_id);
                     data.put("skip", integers[0]);
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return postHelper.Post(URLUtils.readAliens, data.toString());
@@ -803,13 +803,13 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return  postHelper.Post(URLUtils.demoMovie,data.toString());
@@ -822,10 +822,10 @@ public class MoreData extends AppCompatActivity {
                 JSONObject data = new JSONObject();
 
                 try {
-                    data.put("phone",phone);
+                    data.put("email",email);
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return  postHelper.Post(URLUtils.readMovies,data.toString());
@@ -947,11 +947,11 @@ public class MoreData extends AppCompatActivity {
 //            int currentSize = scrollPosition;
 //            int nextLimit = currentSize + 10;
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
                 try {
                     data.put("token", token);
-                    data.put("android_id", android_id);
+                    data.put("user_id", user_id);
                     data.put("skip", integers[0]);
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return postHelper.Post(URLUtils.demoMovie, data.toString());
@@ -963,9 +963,9 @@ public class MoreData extends AppCompatActivity {
             }else {
                 JSONObject data = new JSONObject();
                 try {
-                    data.put("phone", phone);
+                    data.put("email", email);
                     data.put("token", token);
-                    data.put("android_id", android_id);
+                    data.put("user_id", user_id);
                     data.put("skip", integers[0]);
                     PostHelper postHelper = new PostHelper(MoreData.this);
                     return postHelper.Post(URLUtils.readMovies, data.toString());

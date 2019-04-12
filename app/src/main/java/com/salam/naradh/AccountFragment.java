@@ -32,7 +32,7 @@ public class AccountFragment extends Fragment {
     TextView tvName,tvPhone,tvNoOfPosts;
     SharedPreferences sd;
     SharedPreferences.Editor editor;
-    String phone,token,android_id;
+    String email,token,user_id;
     AdView adView;
 
 
@@ -61,9 +61,9 @@ public class AccountFragment extends Fragment {
         editor =sd.edit();
 
 
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
         token = sd.getString("token","");
-        android_id  =  sd.getString("android_id","");
+        user_id  =  sd.getString("user_id","");
 
         new AsyncGetDetails().execute();
 
@@ -89,9 +89,9 @@ public class AccountFragment extends Fragment {
             JSONObject data = new JSONObject();
 
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 PostHelper postHelper = new PostHelper(getContext());
                 return  postHelper.Post(URLUtils.userProfile,data.toString());
             } catch (JSONException e) {

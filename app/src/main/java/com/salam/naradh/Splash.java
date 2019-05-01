@@ -46,6 +46,8 @@ public class Splash extends AppCompatActivity {
 
         MobileAds.initialize(Splash.this,"ca-app-pub-1679206260526965~9036544668");
 
+        Log.e("Dimenstions",Resources.getSystem().getDisplayMetrics().widthPixels+"\n"+Resources.getSystem().getDisplayMetrics().heightPixels);
+
 
         sd = getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         editor = sd.edit();
@@ -68,37 +70,7 @@ public class Splash extends AppCompatActivity {
             }
         });
 
-
-
-
         email = sd.getString("email","");
-
-
-
-
-
-
-
-
-//        Thread logoTimer=new Thread(){
-//            public void run(){
-//                try{
-//                    sleep(2000);
-//                }
-//                catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                finally{
-//
-//                }
-//            }
-//
-//        };
-//
-//        logoTimer.start();
-
-
 
 
     }

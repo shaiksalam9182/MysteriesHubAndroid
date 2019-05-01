@@ -109,9 +109,9 @@ public class Splash extends AppCompatActivity {
             if (jsonObject!=null){
                 Log.e("demoRes",jsonObject.toString());
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
-//                    editor.putString("android_id",jsonObject.optString("android_id"));
-//                    editor.putString("token",jsonObject.optString("token"));
-//                    editor.commit();
+                    editor.putString("user_id",jsonObject.optString("user_id"));
+                    editor.putString("token",jsonObject.optString("token"));
+                    editor.commit();
                     redirect();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     Toast.makeText(Splash.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();

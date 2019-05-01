@@ -211,7 +211,7 @@ public class DataFragment extends Fragment {
         protected JSONObject doInBackground(Void... voids) {
 
 
-            if (email.equalsIgnoreCase("")){
+
 
                 JSONObject data = new JSONObject();
 
@@ -228,23 +228,6 @@ public class DataFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-            }else {
-                JSONObject data = new JSONObject();
-
-                try {
-                    data.put("email",email);
-                    data.put("token",token);
-                    data.put("user_id",user_id);
-                    data.put("skip","0");
-
-                    PostHelper postHelper = new PostHelper(getActivity());
-                    return  postHelper.Post(URLUtils.readPostsLimit,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
 
@@ -321,7 +304,7 @@ public class DataFragment extends Fragment {
                     String description =  data.optJSONObject(0).optString("description");
                     String type = "posts";
 
-                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    Intent descView = new Intent(getContext(),Webactivity.class);
                     descView.putExtra("id",id);
                     descView.putExtra("title",title);
                     descView.putExtra("description",description);
@@ -398,7 +381,7 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (email.equalsIgnoreCase("")){
+
                 JSONObject data = new JSONObject();
 
                 try {
@@ -414,23 +397,7 @@ public class DataFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("email",email);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("user_id",user_id);
-
-                    PostHelper postHelper = new PostHelper(getActivity());
-                    return  postHelper.Post(URLUtils.readPlacesLimit,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -503,7 +470,7 @@ public class DataFragment extends Fragment {
                     String description =  data.optJSONObject(0).optString("description");
                     String type = "places";
 
-                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    Intent descView = new Intent(getContext(),Webactivity.class);
                     descView.putExtra("id",id);
                     descView.putExtra("title",title);
                     descView.putExtra("description",description);
@@ -538,7 +505,7 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (email.equalsIgnoreCase("")){
+
                 JSONObject data = new JSONObject();
 
                 try {
@@ -553,23 +520,7 @@ public class DataFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("email",email);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("user_id",user_id);
-
-                    PostHelper postHelper = new PostHelper(getActivity());
-                    return  postHelper.Post(URLUtils.readALiensLimit,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -644,7 +595,7 @@ public class DataFragment extends Fragment {
                     String description =  data.optJSONObject(0).optString("description");
                     String type = "aliens";
 
-                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    Intent descView = new Intent(getContext(),Webactivity.class);
                     descView.putExtra("id",id);
                     descView.putExtra("title",title);
                     descView.putExtra("description",description);
@@ -679,7 +630,6 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
@@ -694,23 +644,7 @@ public class DataFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("email",email);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("user_id",user_id);
-
-                    PostHelper postHelper = new PostHelper(getActivity());
-                    return  postHelper.Post(URLUtils.readMoviesLimit,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -782,7 +716,7 @@ public class DataFragment extends Fragment {
                     String description =  data.optJSONObject(0).optString("description");
                     String type = "movies";
 
-                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    Intent descView = new Intent(getContext(),Webactivity.class);
                     descView.putExtra("id",id);
                     descView.putExtra("title",title);
                     descView.putExtra("description",description);
@@ -925,7 +859,7 @@ public class DataFragment extends Fragment {
                             String description =  postList.get(i).get("description").toString();
                             String type = "posts";
 
-                            Intent descView = new Intent(getContext(),DescriptionView.class);
+                            Intent descView = new Intent(getContext(),Webactivity.class);
                             descView.putExtra("id",id);
                             descView.putExtra("title",title);
                             descView.putExtra("description",description);

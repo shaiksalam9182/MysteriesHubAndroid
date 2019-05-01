@@ -103,7 +103,6 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
@@ -119,23 +118,7 @@ public class MoreData extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("email",email);
-                    data.put("token",token);
-                    data.put("user_id",user_id);
-                    data.put("skip","0");
-
-                    PostHelper postHelper = new PostHelper(MoreData.this);
-                    return  postHelper.Post(URLUtils.readPosts,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
 
@@ -256,7 +239,6 @@ public class MoreData extends AppCompatActivity {
 //            int currentSize = scrollPosition;
 //            int nextLimit = currentSize + 10;
 
-            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
                 try {
 
@@ -270,22 +252,6 @@ public class MoreData extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
-                JSONObject data = new JSONObject();
-                try {
-                    data.put("email",email);
-                    data.put("token", token);
-                    data.put("user_id", user_id);
-                    data.put("skip", integers[0]);
-                    PostHelper postHelper = new PostHelper(MoreData.this);
-                    return postHelper.Post(URLUtils.readPosts, data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
 
 
             return null;
@@ -340,7 +306,6 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (email.equalsIgnoreCase("")){
 
                 JSONObject data = new JSONObject();
 
@@ -357,23 +322,7 @@ public class MoreData extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("email",email);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("user_id",user_id);
-
-                    PostHelper postHelper = new PostHelper(MoreData.this);
-                    return  postHelper.Post(URLUtils.readPlaces,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -491,7 +440,6 @@ public class MoreData extends AppCompatActivity {
 //            int currentSize = scrollPosition;
 //            int nextLimit = currentSize + 10;
 
-            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
                 try {
 
@@ -505,21 +453,7 @@ public class MoreData extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
-                JSONObject data = new JSONObject();
-                try {
-                    data.put("email", email);
-                    data.put("token", token);
-                    data.put("user_id", user_id);
-                    data.put("skip", integers[0]);
-                    PostHelper postHelper = new PostHelper(MoreData.this);
-                    return postHelper.Post(URLUtils.readPlaces, data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+
 
 
 
@@ -577,7 +511,6 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (email.equalsIgnoreCase("")){
 
                 JSONObject data = new JSONObject();
 
@@ -594,23 +527,7 @@ public class MoreData extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("email",email);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("user_id",user_id);
-
-                    PostHelper postHelper = new PostHelper(MoreData.this);
-                    return  postHelper.Post(URLUtils.readAliens,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -722,7 +639,6 @@ public class MoreData extends AppCompatActivity {
 ////            int currentSize = scrollPosition;
 ////            int nextLimit = currentSize + 10;
 
-            if (email.equalsIgnoreCase("")){
 
                 JSONObject data = new JSONObject();
                 try {
@@ -736,22 +652,7 @@ public class MoreData extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
 
-                JSONObject data = new JSONObject();
-                try {
-                    data.put("email", email);
-                    data.put("token", token);
-                    data.put("user_id", user_id);
-                    data.put("skip", integers[0]);
-                    PostHelper postHelper = new PostHelper(MoreData.this);
-                    return postHelper.Post(URLUtils.readAliens, data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -803,7 +704,6 @@ public class MoreData extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
@@ -818,23 +718,7 @@ public class MoreData extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("email",email);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("user_id",user_id);
-
-                    PostHelper postHelper = new PostHelper(MoreData.this);
-                    return  postHelper.Post(URLUtils.readMovies,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -947,7 +831,6 @@ public class MoreData extends AppCompatActivity {
 //            int currentSize = scrollPosition;
 //            int nextLimit = currentSize + 10;
 
-            if (email.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
                 try {
                     data.put("token", token);
@@ -960,21 +843,6 @@ public class MoreData extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
-                JSONObject data = new JSONObject();
-                try {
-                    data.put("email", email);
-                    data.put("token", token);
-                    data.put("user_id", user_id);
-                    data.put("skip", integers[0]);
-                    PostHelper postHelper = new PostHelper(MoreData.this);
-                    return postHelper.Post(URLUtils.readMovies, data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;

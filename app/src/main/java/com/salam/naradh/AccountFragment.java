@@ -92,6 +92,7 @@ public class AccountFragment extends Fragment {
                 data.put("email",email);
                 data.put("token",token);
                 data.put("user_id",user_id);
+                Log.e("sendingData",data.toString());
                 PostHelper postHelper = new PostHelper(getContext());
                 return  postHelper.Post(URLUtils.userProfile,data.toString());
             } catch (JSONException e) {
@@ -109,11 +110,11 @@ public class AccountFragment extends Fragment {
             super.onPostExecute(jsonObject);
             pdLoading.dismiss();
             if (jsonObject!=null){
-//                Log.e("profrileRes",jsonObject.toString());
+                Log.e("profrileRes",jsonObject.toString());
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
 
                     tvName.setText("Full Name: "+jsonObject.optString("fullname"));
-                    tvPhone.setText("Phone: "+jsonObject.optString("phone"));
+                    tvPhone.setText("Email: "+jsonObject.optString("email"));
                     tvNoOfPosts.setText("Your posts: "+jsonObject.optString("post_counts"));
 
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){

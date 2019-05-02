@@ -92,6 +92,7 @@ public class NotificationsFragment extends Fragment {
                 data.put("email",email);
                 data.put("token",token);
                 data.put("user_id",user_id);
+                Log.e("sendingData",data.toString());
                 PostHelper postHelper = new PostHelper(getContext());
                 return  postHelper.Post(URLUtils.readNotifications,data.toString());
             } catch (JSONException e) {

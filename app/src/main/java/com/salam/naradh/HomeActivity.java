@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,7 +31,7 @@ public class HomeActivity extends AppCompatActivity
     String username;
     boolean transactionDone = false;
     boolean backpressed = false;
-    String phone = "";
+    String email = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class HomeActivity extends AppCompatActivity
         editor = sd.edit();
 
         username = sd.getString("name","");
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,7 +68,7 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
 
-        if (phone.equalsIgnoreCase("")){
+        if (email.equalsIgnoreCase("")){
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
         }
@@ -128,8 +129,8 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_account) {
-
-            if (phone.equalsIgnoreCase("")){
+            Log.e("emaildetails",email);
+            if (email.equalsIgnoreCase("")){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                 builder.setMessage("Please login to access account section");
                 builder.setCancelable(false);
@@ -165,7 +166,7 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_feedback) {
 
-            if (phone.equalsIgnoreCase("")){
+            if (email.equalsIgnoreCase("")){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                 builder.setMessage("Please login to serve you better");
                 builder.setCancelable(false);
@@ -196,9 +197,8 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
-            editor.putString("phone","");
+            editor.putString("email","");
             editor.putString("token","");
-            editor.putString("android_id","");
             editor.putString("name","");
             editor.commit();
             startActivity(new Intent(HomeActivity.this,LoginActivity.class));

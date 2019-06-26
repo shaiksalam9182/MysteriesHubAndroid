@@ -33,7 +33,7 @@ public class FeedbackFragment extends Fragment {
     RadioButton rbBug,rbFeature,rbSuggestion;
     EditText etFeedback;
     Button btSubmit;
-    String type = "",feedBack = "",phone,token,android_id;
+    String type = "",feedBack = "",email,token,user_id;
 
 
     SharedPreferences sd;
@@ -64,9 +64,9 @@ public class FeedbackFragment extends Fragment {
         editor = sd.edit();
 
 
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
         token = sd.getString("token","");
-        android_id = sd.getString("android_id","");
+        user_id = sd.getString("user_id","");
 
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,9 +135,9 @@ public class FeedbackFragment extends Fragment {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 data.put("type",type);
                 data.put("message",feedBack);
 

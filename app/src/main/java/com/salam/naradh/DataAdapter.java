@@ -100,7 +100,7 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         String description =  dataList.get(i).get("description").toString();
                         String type = "posts";
 
-                        Intent descView = new Intent(mContext,DescriptionView.class);
+                        Intent descView = new Intent(mContext,Webactivity.class);
                         descView.putExtra("id",id);
                         descView.putExtra("title",title);
                         descView.putExtra("description",description);
@@ -113,7 +113,7 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         String description =  dataList.get(i).get("description").toString();
                         String type = "places";
 
-                        Intent descView = new Intent(mContext,DescriptionView.class);
+                        Intent descView = new Intent(mContext,Webactivity.class);
                         descView.putExtra("id",id);
                         descView.putExtra("title",title);
                         descView.putExtra("type",type);
@@ -126,7 +126,7 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         String description =  dataList.get(i).get("description").toString();
                         String type = "aliens";
 
-                        Intent descView = new Intent(mContext,DescriptionView.class);
+                        Intent descView = new Intent(mContext,Webactivity.class);
                         descView.putExtra("id",id);
                         descView.putExtra("title",title);
                         descView.putExtra("type",type);
@@ -139,7 +139,7 @@ class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         String description =  dataList.get(i).get("description").toString();
                         String type = "movies";
 
-                        Intent descView = new Intent(mContext,DescriptionView.class);
+                        Intent descView = new Intent(mContext,Webactivity.class);
                         descView.putExtra("id",id);
                         descView.putExtra("type",type);
                         descView.putExtra("title",title);

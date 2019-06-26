@@ -59,7 +59,7 @@ public class DataFragment extends Fragment {
 
     ProgressBar pdData;
 
-    String phone,token,android_id = "";
+    String email,token,user_id = "";
     ArrayList<HashMap> postList,placesList,aliensList,moviesList;
     HashMap<String,String>  map;
     ImageView ivMain;
@@ -121,9 +121,9 @@ public class DataFragment extends Fragment {
         sd = getActivity().getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         editor = sd.edit();
 
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
         token = sd.getString("token","");
-        android_id = sd.getString("android_id","");
+        user_id = sd.getString("user_id","");
 
 
 
@@ -162,7 +162,7 @@ public class DataFragment extends Fragment {
         fabWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (phone.equalsIgnoreCase("")){
+                if (email.equalsIgnoreCase("")){
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setMessage("Please login to contribute");
                     builder.setCancelable(false);
@@ -211,13 +211,13 @@ public class DataFragment extends Fragment {
         protected JSONObject doInBackground(Void... voids) {
 
 
-            if (phone.equalsIgnoreCase("")){
+
 
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
                     data.put("skip","0");
 
                     PostHelper postHelper = new PostHelper(getActivity());
@@ -228,23 +228,6 @@ public class DataFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-            }else {
-                JSONObject data = new JSONObject();
-
-                try {
-                    data.put("phone",phone);
-                    data.put("token",token);
-                    data.put("android_id",android_id);
-                    data.put("skip","0");
-
-                    PostHelper postHelper = new PostHelper(getActivity());
-                    return  postHelper.Post(URLUtils.readPostsLimit,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
 
@@ -321,7 +304,7 @@ public class DataFragment extends Fragment {
                     String description =  data.optJSONObject(0).optString("description");
                     String type = "posts";
 
-                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    Intent descView = new Intent(getContext(),Webactivity.class);
                     descView.putExtra("id",id);
                     descView.putExtra("title",title);
                     descView.putExtra("description",description);
@@ -398,13 +381,13 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.demoUserPlaceLimit,data.toString());
@@ -414,23 +397,7 @@ public class DataFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("phone",phone);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("android_id",android_id);
-
-                    PostHelper postHelper = new PostHelper(getActivity());
-                    return  postHelper.Post(URLUtils.readPlacesLimit,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -503,7 +470,7 @@ public class DataFragment extends Fragment {
                     String description =  data.optJSONObject(0).optString("description");
                     String type = "places";
 
-                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    Intent descView = new Intent(getContext(),Webactivity.class);
                     descView.putExtra("id",id);
                     descView.putExtra("title",title);
                     descView.putExtra("description",description);
@@ -538,13 +505,13 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
+
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.demoUserAlienLimit,data.toString());
@@ -553,23 +520,7 @@ public class DataFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("phone",phone);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("android_id",android_id);
-
-                    PostHelper postHelper = new PostHelper(getActivity());
-                    return  postHelper.Post(URLUtils.readALiensLimit,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -644,7 +595,7 @@ public class DataFragment extends Fragment {
                     String description =  data.optJSONObject(0).optString("description");
                     String type = "aliens";
 
-                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    Intent descView = new Intent(getContext(),Webactivity.class);
                     descView.putExtra("id",id);
                     descView.putExtra("title",title);
                     descView.putExtra("description",description);
@@ -679,13 +630,12 @@ public class DataFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
-            if (phone.equalsIgnoreCase("")){
                 JSONObject data = new JSONObject();
 
                 try {
                     data.put("token",token);
                     data.put("skip","0");
-                    data.put("android_id",android_id);
+                    data.put("user_id",user_id);
 
                     PostHelper postHelper = new PostHelper(getActivity());
                     return  postHelper.Post(URLUtils.demoUserMovieLimit,data.toString());
@@ -694,23 +644,7 @@ public class DataFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
-                JSONObject data = new JSONObject();
 
-                try {
-                    data.put("phone",phone);
-                    data.put("token",token);
-                    data.put("skip","0");
-                    data.put("android_id",android_id);
-
-                    PostHelper postHelper = new PostHelper(getActivity());
-                    return  postHelper.Post(URLUtils.readMoviesLimit,data.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
 
             return null;
@@ -782,7 +716,7 @@ public class DataFragment extends Fragment {
                     String description =  data.optJSONObject(0).optString("description");
                     String type = "movies";
 
-                    Intent descView = new Intent(getContext(),DescriptionView.class);
+                    Intent descView = new Intent(getContext(),Webactivity.class);
                     descView.putExtra("id",id);
                     descView.putExtra("title",title);
                     descView.putExtra("description",description);
@@ -925,7 +859,7 @@ public class DataFragment extends Fragment {
                             String description =  postList.get(i).get("description").toString();
                             String type = "posts";
 
-                            Intent descView = new Intent(getContext(),DescriptionView.class);
+                            Intent descView = new Intent(getContext(),Webactivity.class);
                             descView.putExtra("id",id);
                             descView.putExtra("title",title);
                             descView.putExtra("description",description);
@@ -977,9 +911,9 @@ public class DataFragment extends Fragment {
 
             JSONObject data = new JSONObject();
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 data.put("skip",integers[0]);
                 PostHelper postHelper = new PostHelper(getContext());
                 return postHelper.Post(URLUtils.readPosts,data.toString());

@@ -4,10 +4,11 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="gradient_up">#F86666</color>
-    <color name="gradient_down">#f4554f</color>
-    <color name="gradient_middle">#F86666</color>
+    <color name="gradient_up">#3b96f8</color>
+    <color name="gradient_down">#368BFD</color>
+    <color name="gradient_middle">#4693EB</color>
 
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
 </resources>

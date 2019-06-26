@@ -36,7 +36,7 @@ public class Splash extends AppCompatActivity {
 
     SharedPreferences sd;
     SharedPreferences.Editor editor;
-    String phone,android_id,fcm_token = "";
+    String email,user_id,fcm_token = "";
 
 
     @Override
@@ -46,11 +46,13 @@ public class Splash extends AppCompatActivity {
 
         MobileAds.initialize(Splash.this,"ca-app-pub-1679206260526965~9036544668");
 
+        Log.e("Dimenstions",Resources.getSystem().getDisplayMetrics().widthPixels+"\n"+Resources.getSystem().getDisplayMetrics().heightPixels);
+
 
         sd = getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         editor = sd.edit();
 
-        android_id =  Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+//        android_id =  Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -68,37 +70,7 @@ public class Splash extends AppCompatActivity {
             }
         });
 
-
-
-
-        phone = sd.getString("phone","");
-
-
-
-
-
-
-
-
-//        Thread logoTimer=new Thread(){
-//            public void run(){
-//                try{
-//                    sleep(2000);
-//                }
-//                catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                finally{
-//
-//                }
-//            }
-//
-//        };
-//
-//        logoTimer.start();
-
-
+        email = sd.getString("email","");
 
 
     }
@@ -115,7 +87,7 @@ public class Splash extends AppCompatActivity {
         protected JSONObject doInBackground(Void... voids) {
             JSONObject data = new JSONObject();
             try {
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
                 data.put("device_type","android");
                 data.put("fcm_token",fcm_token);
 
@@ -137,9 +109,9 @@ public class Splash extends AppCompatActivity {
             if (jsonObject!=null){
                 Log.e("demoRes",jsonObject.toString());
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
-                    editor.putString("android_id",jsonObject.optString("android_id"));
-                    editor.putString("token",jsonObject.optString("token"));
-                    editor.commit();
+//                    editor.putString("user_id",jsonObject.optString("user_id"));
+//                    editor.putString("token",jsonObject.optString("token"));
+//                    editor.commit();
                     redirect();
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     Toast.makeText(Splash.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
@@ -156,14 +128,18 @@ public class Splash extends AppCompatActivity {
     }
 
     private void redirect() {
-        String android_id = sd.getString("android_id","");
-        if (android_id.equalsIgnoreCase("")){
-            startActivity(new Intent(Splash.this,LoginActivity.class));
+        if (sd.getString("email","").equalsIgnoreCase("")){
+            editor.putString("email","");
+            editor.putString("token","");
+            editor.commit();
+            startActivity(new Intent(Splash.this,HomeActivity.class));
             finish();
         }else {
             startActivity(new Intent(Splash.this,HomeActivity.class));
             finish();
         }
+
+
     }
 
     private class AsyncUpdateCheck extends AsyncTask<Void,Void,JSONObject>{
@@ -210,7 +186,8 @@ public class Splash extends AppCompatActivity {
                     if (Float.parseFloat(version)>Float.parseFloat(appVersion)){
                         raiseDialog(updateOne,updateTwo,updateThree);
                     }else {
-                        new AsyncDemoUser().execute();
+//                        new AsyncDemoUser().execute();
+                        redirect();
                     }
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     Toast.makeText(Splash.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
@@ -223,6 +200,7 @@ public class Splash extends AppCompatActivity {
             }
         }
     }
+
 
     private void raiseDialog(String updateOne, String updateTwo, String updateThree) {
         final Dialog dialog = new Dialog(Splash.this);
@@ -248,7 +226,7 @@ public class Splash extends AppCompatActivity {
         Button btUpdate = (Button)dialog.findViewById(R.id.bt_update);
         Button btCancel = (Button)dialog.findViewById(R.id.bt_cancel);
 
-        tvMain.setText("New version of Naaradh update available in play store");
+        tvMain.setText("New version of Mysteries Hub available in play store");
 
 
 
@@ -270,7 +248,8 @@ public class Splash extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                new AsyncDemoUser().execute();
+//                new AsyncDemoUser().execute();
+                redirect();
             }
         });
 

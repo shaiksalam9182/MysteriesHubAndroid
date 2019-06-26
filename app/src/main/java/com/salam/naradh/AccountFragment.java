@@ -32,7 +32,7 @@ public class AccountFragment extends Fragment {
     TextView tvName,tvPhone,tvNoOfPosts;
     SharedPreferences sd;
     SharedPreferences.Editor editor;
-    String phone,token,android_id;
+    String email,token,user_id;
     AdView adView;
 
 
@@ -61,9 +61,9 @@ public class AccountFragment extends Fragment {
         editor =sd.edit();
 
 
-        phone = sd.getString("phone","");
+        email = sd.getString("email","");
         token = sd.getString("token","");
-        android_id  =  sd.getString("android_id","");
+        user_id  =  sd.getString("user_id","");
 
         new AsyncGetDetails().execute();
 
@@ -89,9 +89,10 @@ public class AccountFragment extends Fragment {
             JSONObject data = new JSONObject();
 
             try {
-                data.put("phone",phone);
+                data.put("email",email);
                 data.put("token",token);
-                data.put("android_id",android_id);
+                data.put("user_id",user_id);
+                Log.e("sendingData",data.toString());
                 PostHelper postHelper = new PostHelper(getContext());
                 return  postHelper.Post(URLUtils.userProfile,data.toString());
             } catch (JSONException e) {
@@ -109,11 +110,11 @@ public class AccountFragment extends Fragment {
             super.onPostExecute(jsonObject);
             pdLoading.dismiss();
             if (jsonObject!=null){
-//                Log.e("profrileRes",jsonObject.toString());
+                Log.e("profrileRes",jsonObject.toString());
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
 
                     tvName.setText("Full Name: "+jsonObject.optString("fullname"));
-                    tvPhone.setText("Phone: "+jsonObject.optString("phone"));
+                    tvPhone.setText("Email: "+jsonObject.optString("email"));
                     tvNoOfPosts.setText("Your posts: "+jsonObject.optString("post_counts"));
 
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){

@@ -7,9 +7,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,11 +23,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class DescriptionView extends AppCompatActivity {
-
+public class Webactivity extends AppCompatActivity {
+    WebView wvData;
     ImageView imgBack,imgShare;
     TextView tvTitle,tvStatus;
-    Editor editor;
     String title,description,id,type,email,token,user_id,comingFrom = "";
     ImageView imgLike,imgDisLike;
 
@@ -39,7 +37,7 @@ public class DescriptionView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_description_view);
+        setContentView(R.layout.activity_webactivity);
 
         sd = getSharedPreferences("Naradh", Context.MODE_PRIVATE);
         edit  = sd.edit();
@@ -47,12 +45,6 @@ public class DescriptionView extends AppCompatActivity {
         email = sd.getString("email","");
         token = sd.getString("token","");
         user_id = sd.getString("user_id","");
-
-
-
-
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         title = getIntent().getStringExtra("title");
         description = getIntent().getStringExtra("description");
@@ -62,16 +54,18 @@ public class DescriptionView extends AppCompatActivity {
         comingFrom = getIntent().getStringExtra("url");
 
 
+        wvData = (WebView)findViewById(R.id.wv_data);
         imgBack = (ImageView)findViewById(R.id.img_back);
         imgShare = (ImageView)findViewById(R.id.img_share);
         tvStatus = (TextView)findViewById(R.id.tv_status);
-
         tvTitle = (TextView)findViewById(R.id.tv_title);
-        editor = (Editor)findViewById(R.id.renderer);
-
-
         imgLike = (ImageView)findViewById(R.id.img_like);
         imgDisLike = (ImageView)findViewById(R.id.img_disl_like);
+
+        description = "<style>img{display: inline;height: auto;max-width: 100%;}</style>"+description;
+        Log.e("descriptionData",description);
+//        wvData.loadData(description,"text/html","UTF-8");
+
 
 
         if (email.equalsIgnoreCase("")){
@@ -125,6 +119,7 @@ public class DescriptionView extends AppCompatActivity {
 
         }
 
+
         imgShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,14 +145,13 @@ public class DescriptionView extends AppCompatActivity {
                 imgDisLike.setVisibility(View.GONE);
                 new AsynGetData().execute();
                 new AsyncGetSuggestionsData().execute();
-                Toast.makeText(DescriptionView.this,"Here we will call new api along suggestion api",Toast.LENGTH_LONG).show();
+                Toast.makeText(Webactivity.this,"Here we will call new api along suggestion api",Toast.LENGTH_LONG).show();
             }
 
         }else {
-            editor.render(description);
+            wvData.loadData(description,"text/html","UTF-8");
             tvTitle.setText(title);
         }
-
 
 
 
@@ -213,6 +207,7 @@ public class DescriptionView extends AppCompatActivity {
             }
         });
 
+
     }
 
 
@@ -231,7 +226,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("token",token);
                 data.put("post_id",id);
                 data.put("user_id",user_id);
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.likePost,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -253,20 +248,21 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(Webactivity.this,LoginActivity.class);
                         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                       startActivity(login);
-                       finish();
+                        startActivity(login);
+                        finish();
                     }else {
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     };
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         }
     }
+
 
     private class AsyncLikePlace extends AsyncTask<Void,Void,JSONObject>{
 
@@ -279,7 +275,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("token",token);
                 data.put("place_id",id);
                 data.put("user_id",user_id);
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.likePlace,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -302,16 +298,16 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(Webactivity.this,LoginActivity.class);
                         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login);
                         finish();
                     }else {
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     };
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -329,7 +325,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("token",token);
                 data.put("alienPost_id",id);
                 data.put("user_id",user_id);
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.likeAlien,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -352,16 +348,16 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(Webactivity.this,LoginActivity.class);
                         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login);
                         finish();
                     }else {
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     };
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -378,7 +374,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("token",token);
                 data.put("movie_id",id);
                 data.put("user_id",user_id);
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.likeMovie,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -400,20 +396,21 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(Webactivity.this,LoginActivity.class);
                         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login);
                         finish();
                     }else {
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     };
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         }
     }
+
 
     private class AsyncDisLikePost extends AsyncTask<Void,Void,JSONObject>{
         @Override
@@ -424,7 +421,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("token",token);
                 data.put("post_id",id);
                 data.put("user_id",user_id);
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.disLikePost,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -446,16 +443,16 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(Webactivity.this,LoginActivity.class);
                         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login);
                         finish();
                     }else {
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     };
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -470,7 +467,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("token",token);
                 data.put("place_id",id);
                 data.put("user_id",user_id);
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.disLikePlace,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -492,16 +489,16 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(Webactivity.this,LoginActivity.class);
                         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login);
                         finish();
                     }else {
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     };
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -516,7 +513,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("token",token);
                 data.put("alienPost_id",id);
                 data.put("user_id",user_id);
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.disLikeAlien,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -538,16 +535,16 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(Webactivity.this,LoginActivity.class);
                         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login);
                         finish();
                     }else {
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     };
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -562,7 +559,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("token",token);
                 data.put("movie_id",id);
                 data.put("user_id",user_id);
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.disLikeMovie,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -584,20 +581,23 @@ public class DescriptionView extends AppCompatActivity {
                     tvStatus.setText("Thanks for the feedback");
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
                     if (jsonObject.optString("code").equalsIgnoreCase("500")){
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        Intent login = new Intent(DescriptionView.this,LoginActivity.class);
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Intent login = new Intent(Webactivity.this,LoginActivity.class);
                         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(login);
                         finish();
                     }else {
-                        Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                        Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                     };
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         }
     }
+
+
+
 
     private class AsyncGetSuggestionsData extends AsyncTask<Void,Void,JSONObject>{
         @Override
@@ -610,7 +610,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("post_id",id);
                 data.put("type",type);
 
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 Log.e("sendingData",data.toString());
                 return postHelper.Post(URLUtils.verifySuggestion,data.toString());
             } catch (JSONException e) {
@@ -642,7 +642,7 @@ public class DescriptionView extends AppCompatActivity {
                         adView.loadAd(adRequest);
                     }
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                 }else {
                     imgDisLike.setVisibility(View.GONE);
                     imgLike.setVisibility(View.GONE);
@@ -667,7 +667,7 @@ public class DescriptionView extends AppCompatActivity {
                 data.put("type",type);
                 data.put("id",id);
                 Log.e("sendingData",data.toString());
-                PostHelper postHelper = new PostHelper(DescriptionView.this);
+                PostHelper postHelper = new PostHelper(Webactivity.this);
                 return postHelper.Post(URLUtils.getData,data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -686,35 +686,17 @@ public class DescriptionView extends AppCompatActivity {
                 if (jsonObject.optString("status").equalsIgnoreCase("success")){
                     JSONObject data = jsonObject.optJSONObject("data");
                     tvTitle.setText(data.optString("title"));
-                    editor.render(data.optString("description"));
+                    String descritption = "<style>img{display: inline;height: auto;max-width: 100%;}</style>"+data.optString("description");
+                    wvData.loadData(description,"text/html","UTF-8");
 
                 }else if (jsonObject.optString("status").equalsIgnoreCase("Failed")){
-                    Toast.makeText(DescriptionView.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
                 }else {
-                    Toast.makeText(DescriptionView.this,"Error occurred",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Webactivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }else {
-                Toast.makeText(DescriptionView.this,"Something went wrong.Check your network connection",Toast.LENGTH_LONG).show();
+                Toast.makeText(Webactivity.this,"Something went wrong.Check your network connection",Toast.LENGTH_LONG).show();
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

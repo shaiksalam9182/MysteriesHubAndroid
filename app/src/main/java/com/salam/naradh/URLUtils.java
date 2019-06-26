@@ -2,7 +2,7 @@ package com.salam.naradh;
 
 public class URLUtils {
 
-    public static final String base = "https://admin.naaradh.in/";
+    public static final String base = "https://admin.mysterieshub.com/";
     public static final String register = base+"register";
     public static final String verify = base+"verify";
     public static final String login = base+"login";

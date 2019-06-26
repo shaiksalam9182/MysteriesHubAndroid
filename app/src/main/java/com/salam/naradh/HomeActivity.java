@@ -197,9 +197,8 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
-            editor.putString("phone","");
+            editor.putString("email","");
             editor.putString("token","");
-            editor.putString("android_id","");
             editor.putString("name","");
             editor.commit();
             startActivity(new Intent(HomeActivity.this,LoginActivity.class));
